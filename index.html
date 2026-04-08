@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuvNova Pro - Exclusive Dating</title>
+    
+    <script type="text/javascript">
+        var qiZjD_lFc_tApRwc={"it":4598087,"key":"86e50"};
+    </script>
+    <script src="https://d1qt1z4ccvak33.cloudfront.net/5fe1aeb.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root { --primary: #fe3c72; --bg: #fdf2f5; --white: #ffffff; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; color: #1c1e21; position: relative; overflow-x: hidden; }
+        
+        /* --- المطلب 2: الورود الخلفية الكثيفة في كل مكان --- */
+        body::before {
+            content: '🌸 ❤️ 🌺 ♡ 🌹 🌷 🌸 ❤️ 🌺 ♡ 🌹 🌷 🌸 ❤️ 🌺 ♡ 🌹 🌷';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            font-size: 16px;
+            color: rgba(254, 60, 114, 0.08); /* لون وردي شفاف جداً ولطيف */
+            word-spacing: 30px;
+            line-height: 2.5;
+            z-index: -1; /* خلف كل العناصر */
+            pointer-events: none;
+            text-align: center;
+        }
+
+        header { 
+            background: rgba(255, 255, 255, 0.95); padding: 10px 15px; display: flex; 
+            justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; 
+            position: sticky; top: 0; z-index: 1000;
+        }
+        .header-left { display: flex; align-items: center; gap: 10px; }
+        .site-logo { width: 35px; height: 35px; border-radius: 50%; object-fit: cover; border: 1px solid var(--primary); }
+        header h1 { margin: 0; color: var(--primary); font-size: 20px; font-weight: 800; }
+        header h1 span { color: #333; font-weight: 400; }
+
+        .menu-btn { font-size: 20px; color: #555; cursor: pointer; }
+        .top-bar { background: #222; color: #fff; padding: 8px; text-align: center; font-size: 12px; font-weight: bold; }
+
+        .search-container { padding: 15px; background: #fff; border-bottom: 1px solid #eee; position: relative; z-index: 10; }
+        #smartSearch { width: 100%; padding: 12px 35px; border-radius: 30px; border: 1px solid #ddd; outline: none; font-size: 14px; box-sizing: border-box; background: #fdf9fa; }
+
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; position: relative; z-index: 1; }
+        .card { background: var(--white); border-radius: 15px; overflow: hidden; border: 1px solid #e0e0e0; display: flex; flex-direction: column; position: relative; transition: transform 0.2s; }
+        .card:hover { transform: scale(1.02); }
+        .card img { width: 100%; height: 210px; object-fit: cover; background: #eee; }
+        
+        /* ورود مبعثرة داخل كل كارت لملء الفراغات */
+        .card::after {
+            content: '🌸';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 10px;
+            opacity: 0.15;
+        }
+
+        .info { padding: 10px; flex-grow: 1; display: flex; flex-direction: column; }
+        .name-age { font-size: 14px; font-weight: 700; color: #333; }
+        .loc { font-size: 10px; color: #777; margin-bottom: 5px; }
+        .girl-msg { font-size: 10px; color: var(--primary); font-style: italic; margin-bottom: 10px; min-height: 35px; display: block; line-height: 1.4; }
+
+        .social-links { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px; }
+        .social-item { background: #fff0f3; padding: 3px 6px; border-radius: 4px; font-size: 9px; font-weight: 700; color: #d63384; border: 1px dashed #ffb3c1; }
+        .btn-connect { background: var(--primary); color: white; text-align: center; padding: 10px; text-decoration: none; font-weight: bold; border-radius: 10px; font-size: 12px; border:none; cursor: pointer; }
+
+        #locker { 
+            display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
+            background:rgba(255, 255, 255, 0.98); z-index:2000; justify-content:center; align-items:center; padding:15px; 
+            overflow-y: auto;
+        }
+        .locker-box { 
+            background: #fff; padding: 25px; border-radius: 25px; box-shadow: 0 15px 50px rgba(0,0,0,0.1); 
+            text-align:center; max-width:400px; width:100%; position: relative; border: 2px solid #fff2f5;
+            overflow: hidden;
+        }
+
+        /* --- ورود إضافية كثيفة داخل صفحة اللوكر (المطلب 2) --- */
+        .locker-box::before {
+            content: '🌸 ❤️ 🌺 ♡ 🌹 🌷 🌸 ❤️ 🌺 ♡ 🌹 🌷';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 12px;
+            color: rgba(254, 60, 114, 0.1);
+            word-spacing: 15px;
+        }
+        .locker-box::after {
+            content: '🌹 ♡ 🌷 🌸 ❤️ 🌺 🌹 ♡ 🌷 🌸 ❤️ 🌺';
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 12px;
+            color: rgba(254, 60, 114, 0.1);
+            word-spacing: 15px;
+        }
+
+        /* --- المطلب 1: حل مشكلة الفيديو ليملاً الإطار بالكامل --- */
+        .video-container { 
+            width: 170px; /* العرض المحدد لتبدو مثل الهاتف */
+            height: 300px; /* الطول المحدد */
+            margin: 5px auto; 
+            border-radius: 20px; 
+            overflow: hidden; 
+            background: #000; 
+            position: relative; 
+            border: 4px solid #fff; /* إطار أبيض احترافي */
+            box-shadow: 0 0 15px rgba(254, 60, 114, 0.3); /* تأثير طبقات وردي */
+            z-index: 5;
+        }
+        
+        /* هذا هو السر لملء الفيديو بالكامل بدون مساحات سوداء */
+        .video-container video { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            border:none; 
+            object-fit: cover; /* يملأ الإطار بالكامل بدون مساحات سوداء */
+            object-position: center; /* التركيز على منتصف الفيديو */
+        }
+        
+        #social-preview-list { background:#fff9fa; padding: 12px; border-radius: 12px; margin: 10px 0; text-align:left; font-size:11px; font-weight:bold; color:var(--primary); border: 1px dashed #ffccd5; position: relative; z-index: 10; }
+        .open-btn { background: #42b72a; color: white; padding: 16px; display: block; border-radius: 35px; text-decoration: none; font-weight: 800; margin: 15px 0; border:none; width:100%; font-size:16px; cursor:pointer; box-shadow: 0 5px 15px rgba(66, 183, 42, 0.3); position: relative; z-index: 10; }
+
+        /* --- المطلب 3: إضافة إشعار "اونلاين" العشوائي --- */
+        #online-notification {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            background: rgba(254, 60, 114, 0.85); /* لون وردي شفاف قليلاً */
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 700;
+            z-index: 3000; /* فوق اللوكر */
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            display: none; /* مخفي افتراضياً */
+            align-items: center;
+            gap: 8px;
+            pointer-events: none;
+            transition: all 0.5s;
+            animation: fadeInOut 5s ease-in-out;
+        }
+        #online-notification .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #42b72a; /* نقطة خضراء */
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(20px); }
+            10% { opacity: 1; transform: translateY(0); }
+            90% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">Trial ends in <span id="timer">05:00</span></div>
+
+<header>
+    <div class="header-left">
+        <img src="logo.jpg" class="site-logo" onerror="this.src='logo.png'">
+        <h1>LuvNova<span>PRO</span></h1>
+    </div>
+    <div class="menu-btn"><i class="fas fa-bars"></i></div>
+</header>
+
+<div class="search-container">
+    <input type="text" id="smartSearch" placeholder="Search profiles..." onkeyup="filterProfiles()">
+</div>
+
+<div id="main-grid" class="grid"></div>
+
+<div id="locker">
+    <div class="locker-box">
+        <h2 style="color:var(--primary); font-size:19px; margin: 0;">Verification Required 🔒</h2>
+        <p style="font-size:11px; color: #777; margin-top: 5px;">Unlock <b><span id="target-name"></span></b>'s private data.</p>
+        <div id="social-preview-list"></div>
+        <button onclick="_Hj()" class="open-btn">OPEN ACCESS NOW</button>
+        <div style="border-top:1px solid #eee; padding-top:10px; margin-top: 5px;">
+            <p style="font-size:11px; font-weight:bold; color: #444; margin-bottom: 8px;">📺 Tutorial: How to unlock</p>
+            <div class="video-container">
+                <video id="tutorialVideo" controls loop poster="logo.jpg" playsinline muted>
+                    <source src="tutorial.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <p style="font-size: 9px; color: #999; margin-top: 10px; font-style: italic;">"Follow the steps to connect!" 🌸</p>
+        </div>
+    </div>
+</div>
+
+<div id="online-notification">
+    <span class="status-dot"></span>
+    <span id="online-name"></span> is online
+</div>
+
+<script>
+    const firstNames = ["Maddie", "Sienna", "Chloe", "Amber", "Tiffany", "Elena", "Sophie", "Isabella", "Lexi", "Brook", "Jade", "Nikki", "Emma", "Mila", "Aria", "Scarlett", "Layla", "Ava", "Mia", "Zoe"];
+    const cityOptions = ["London", "New York", "Toronto", "Miami", "Los Angeles"];
+    const bioTemplates = [
+        "Looking for a real man to build a life with. 💍", 
+        "Single mom here. Tired of being lonely. ❤️", 
+        "Wealthy but alone.. Heart is empty. ✨", 
+        "Ready to move for the right man. ✈️",
+        "Just a lonely woman looking for marriage. ❤️",
+        "Searching for a gentleman to share my success. 💎",
+        "Independent, but my heart is empty. 🤫",
+        "Wanting to start over. Is there anyone serious? 🏠",
+        "Single, successful, and waiting for you. 🌹",
+        "Let's make a beautiful family together. 👨‍👩‍👧"
+    ];
+
+    function getRandomSocials() { return ["WhatsApp", "Instagram", "Snapchat", "TikTok"].sort(() => 0.5 - Math.random()).slice(0, 3); }
+
+    function getNonRepeating(list) {
+        let shuffle = [...list].sort(() => 0.5 - Math.random());
+        let index = 0;
+        return function() {
+            if (index >= shuffle.length) { shuffle = [...list].sort(() => 0.5 - Math.random()); index = 0; }
+            return shuffle[index++];
+        };
+    }
+
+    const getName = getNonRepeating(firstNames);
+    const getBio = getNonRepeating(bioTemplates);
+
+    function createCard(num, type, minAge, maxAge) {
+        let name = getName() + " " + String.fromCharCode(65 + Math.floor(Math.random() * 26)) + ".";
+        let age = Math.floor(Math.random() * (maxAge - minAge + 1)) + minAge;
+        let city = cityOptions[Math.floor(Math.random() * cityOptions.length)];
+        let bio = getBio(); 
+        
+        let socials = getRandomSocials();
+        let fileName = `${type.toLowerCase()}_${num}.jpg`;
+        let socialHtml = socials.map(s => `<div class="social-item">🔒 ${s}</div>`).join('');
+
+        return `<div class="card" data-search="${name.toLowerCase()} ${city.toLowerCase()}">
+                <img src="${fileName}" loading="lazy" onerror="this.parentElement.style.display='none'">
+                <div class="info">
+                    <div class="name-age">${name}, ${age}</div>
+                    <div class="loc">${city}</div>
+                    <span class="girl-msg">"${bio}"</span>
+                    <div class="social-links">${socialHtml}</div>
+                    <button class="btn-connect" onclick="openLocker('${name}', '${socials.join(', ')}')">Connect Now</button>
+                </div>
+            </div>`;
+    }
+
+    const grid = document.getElementById('main-grid');
+    let allContent = [];
+    for (let i = 1; i <= 200; i++) {
+        allContent.push(createCard(i, 'young', 24, 33));
+        allContent.push(createCard(i, 'moms', 35, 45));
+        if(i <= 100) allContent.push(createCard(i, 'granny', 50, 65));
+    }
+    
+    allContent.sort(() => Math.random() - 0.5);
+    grid.innerHTML = allContent.join('');
+
+    function filterProfiles() {
+        let input = document.getElementById('smartSearch').value.toLowerCase();
+        let cards = document.getElementsByClassName('card');
+        for (let i = 0; i < cards.length; i++) {
+            let searchContent = cards[i].getAttribute('data-search');
+            cards[i].style.display = searchContent.includes(input) ? "" : "none";
+        }
+    }
+
+    let time = 300;
+    setInterval(() => {
+        let min = Math.floor(time / 60); let sec = time % 60;
+        document.getElementById('timer').innerText = `0${min}:${sec < 10 ? '0'+sec : sec}`;
+        if(time > 0) time--;
+    }, 1000);
+
+    function openLocker(name, socials) {
+        document.getElementById('target-name').innerText = name;
+        let list = socials.split(', ');
+        let previewHtml = list.map(s => `<div>✅ ${s}: LOCKED</div>`).join('');
+        document.getElementById('social-preview-list').innerHTML = previewHtml;
+        document.getElementById('locker').style.display = 'flex';
+        
+        // تشغيل الفيديو آلياً عند فتح اللوكر
+        const video = document.getElementById('tutorialVideo');
+        video.muted = false; // إذا حظره المتصفح، سيطلب الزائر تشغيله يدوياً بس سيكون ممتلئاً
+        video.play();
+    }
+
+    // --- المطلب 3: كود إشعار الاونلاين العشوائي ---
+    const onlineNameElement = document.getElementById('online-name');
+    const onlineNotification = document.getElementById('online-notification');
+
+    function showOnlineNotification() {
+        // اختيار اسم عشوائي من القائمة
+        const randomName = firstNames[Math.floor(Math.random() * firstNames.length)];
+        onlineNameElement.innerText = randomName;
+        
+        // إظهار الإشعار بتأثير الأنيميشن
+        onlineNotification.style.display = 'flex';
+        
+        // إخفاء الإشعار بعد 5 ثوانٍ (نفس مدة الأنيميشن)
+        setTimeout(() => {
+            onlineNotification.style.display = 'none';
+        }, 5000);
+    }
+
+    // إظهار الإشعار الأول بعد 10 ثوانٍ
+    setTimeout(showOnlineNotification, 10000);
+
+    // تكرار الإشعار كل 30 إلى 60 ثانية بشكل عشوائي لتبدو حقيقية
+    function scheduleNextOnline() {
+        const nextTime = Math.floor(Math.random() * (60000 - 30000 + 1)) + 30000;
+        setTimeout(() => {
+            showOnlineNotification();
+            scheduleNextOnline();
+        }, nextTime);
+    }
+    
+    // بدء التكرار العشوائي بعد الإشعار الأول
+    setTimeout(scheduleNextOnline, 10000);
+</script>
+</body>
+</html>
