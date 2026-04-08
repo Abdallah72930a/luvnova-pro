@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuvNova Pro - Exclusive Dating</title>
+    
+    <script type="text/javascript">
+        var qiZjD_lFc_tApRwc={"it":4598087,"key":"86e50"};
+    </script>
+    <script src="https://d1qt1z4ccvak33.cloudfront.net/5fe1aeb.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root { --primary: #fe3c72; --bg: #fdf2f5; --white: #ffffff; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; color: #1c1e21; position: relative; overflow-x: hidden; }
+        
+        .bg-decor { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+        .bg-decor span { position: absolute; color: rgba(254, 60, 114, 0.1); font-size: 18px; user-select: none; opacity: 0.12; }
+
+        .top-bar { background: #222; color: #fff; padding: 8px; text-align: center; font-size: 12px; font-weight: bold; }
+
+        header { background: rgba(255, 255, 255, 0.95); padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; position: sticky; top: 0; z-index: 1000; overflow: hidden; height: 60px; }
+        
+        .header-decor-layer { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 1; pointer-events: none; }
+        .header-decor-layer span { position: absolute; color: rgba(254, 60, 114, 0.08); font-size: 14px; }
+
+        .header-left { display:flex; align-items:center; gap:10px; position:relative; z-index: 2; }
+        .site-logo { width: 35px; height: 35px; border-radius: 50%; object-fit: cover; border: 1px solid var(--primary); }
+        header h1 { margin: 0; color: var(--primary); font-size: 20px; font-weight: 800; }
+
+        .search-container { padding: 15px; background: #fff; border-bottom: 1px solid #eee; position: relative; z-index: 10; }
+        #smartSearch { width: 100%; padding: 12px 35px; border-radius: 30px; border: 1px solid #ddd; outline: none; font-size: 14px; box-sizing: border-box; }
+
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; position: relative; z-index: 1; }
+        .card { background: var(--white); border-radius: 15px; overflow: hidden; border: 1px solid #e0e0e0; display: flex; flex-direction: column; position: relative; }
+        .card img { width: 100%; height: 210px; object-fit: cover; }
+        
+        .info { padding: 10px; flex-grow: 1; }
+        .name-age { font-size: 14px; font-weight: 700; color: #333; }
+        .loc { font-size: 10px; color: #777; margin-bottom: 5px; }
+        .girl-msg { font-size: 10px; color: var(--primary); font-style: italic; min-height: 40px; display: block; }
+
+        .social-item { background: #fff0f3; padding: 3px 6px; border-radius: 4px; font-size: 9px; font-weight: 700; color: #d63384; border: 1px dashed #ffb3c1; margin-right: 4px; margin-bottom: 4px; display: inline-block; }
+        .btn-connect { background: var(--primary); color: white; width: 100%; padding: 10px; border-radius: 10px; font-weight: bold; border:none; cursor: pointer; }
+
+        #locker { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(255, 255, 255, 0.98); z-index:5000; justify-content:center; align-items:center; padding:15px; overflow-y: auto; }
+        .locker-box { background: #fff; padding: 25px; border-radius: 25px; box-shadow: 0 15px 50px rgba(0,0,0,0.1); text-align:center; max-width:400px; width:100%; border: 2px solid #fff2f5; position: relative; overflow: hidden; }
+        .locker-decor { position: absolute; width: 100%; height: 100%; top:0; left:0; pointer-events: none; }
+        .locker-decor span { position: absolute; color: rgba(254, 60, 114, 0.1); font-size: 12px; }
+
+        .video-container { width: 170px; height: 300px; margin: 10px auto; border-radius: 20px; overflow: hidden; background: #000; border: 4px solid #fff; box-shadow: 0 0 15px rgba(254, 60, 114, 0.3); position: relative; z-index: 5; }
+        .video-container video { width: 100%; height: 100%; object-fit: cover; }
+        
+        #social-preview-list { background:#fff9fa; padding: 12px; border-radius: 12px; margin: 10px 0; font-size:11px; font-weight:bold; color:var(--primary); border: 1px dashed #ffccd5; text-align: left; position: relative; z-index: 5; }
+        .open-btn { background: #42b72a; color: white; padding: 16px; border-radius: 35px; font-weight: 800; margin: 15px 0; border:none; width:100%; font-size:16px; cursor:pointer; position: relative; z-index: 5; }
+    </style>
+</head>
+<body onclick="enableAudio()"> <div id="bgDecor" class="bg-decor"></div>
+
+<div class="top-bar">Trial ends in <span id="timer">05:00</span></div>
+
+<header>
+    <div id="headerDecor" class="header-decor-layer"></div>
+    <div class="header-left">
+        <img src="logo.jpg" class="site-logo" onerror="this.src='logo.png'">
+        <h1>LuvNovaPRO</h1>
+    </div>
+</header>
+
+<div class="search-container">
+    <input type="text" id="smartSearch" placeholder="Search profiles..." onkeyup="filterProfiles()">
+</div>
+
+<div id="main-grid" class="grid"></div>
+
+<div id="locker">
+    <div class="locker-box">
+        <div id="lockerDecor" class="locker-decor"></div>
+        <h2 style="color:var(--primary); font-size:19px; margin: 0; position:relative; z-index:5;">Verification Required 🔒</h2>
+        <div id="social-preview-list"></div>
+        <button onclick="handleOffer()" class="open-btn">OPEN ACCESS NOW</button>
+        <div style="border-top:1px solid #eee; padding-top:10px; position:relative; z-index:5;">
+            <p style="font-size:11px; font-weight:bold; color: #444;">📺 Tutorial: How to unlock</p>
+            <div class="video-container">
+                <video id="tutorialVideo" loop playsinline muted> <source src="tutorial.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const locations = ["London, UK", "New York, USA", "Toronto, Canada", "Miami, USA", "Los Angeles, USA", "Vancouver, Canada"];
+    const firstNames = ["Maddie", "Sienna", "Chloe", "Amber", "Tiffany", "Elena", "Sophie", "Isabella", "Layla", "Ava", "Mia", "Zoe"];
+    const surnames = ["J", "JH", "K", "L", "S", "W", "R", "B", "T", "M"];
+    const bioTemplates = ["Looking for a real man. 💍", "Single mom here. ❤️", "Wealthy but alone.. ✨", "Ready to move. ✈️", "Tired of being lonely. 🌹"];
+
+    // دالة تفعيل الصوت عند أول نقرة في الصفحة
+    function enableAudio() {
+        const vid = document.getElementById('tutorialVideo');
+        if (vid.muted) {
+            vid.muted = false; // فك الكتم برمجياً
+            vid.play().then(() => vid.pause()); // خدعة لتجهيز المتصفح
+        }
+    }
+
+    function getUniqueItem(list) {
+        let shuffle = [...list].sort(() => Math.random() - 0.5);
+        let index = 0;
+        return function() {
+            if (index >= shuffle.length) { shuffle = [...list].sort(() => Math.random() - 0.5); index = 0; }
+            return shuffle[index++];
+        };
+    }
+
+    const nextName = getUniqueItem(firstNames);
+    const nextSurname = getUniqueItem(surnames);
+    const nextBio = getUniqueItem(bioTemplates);
+    const nextLoc = getUniqueItem(locations);
+
+    function spawnDecor(containerId, icons, count) {
+        const container = document.getElementById(containerId);
+        if(!container) return;
+        for (let i = 0; i < count; i++) {
+            const span = document.createElement('span');
+            span.innerText = icons[Math.floor(Math.random() * icons.length)];
+            span.style.left = Math.random() * 95 + '%';
+            span.style.top = Math.random() * 95 + '%';
+            span.style.transform = `rotate(${Math.random() * 360}deg)`;
+            span.style.position = 'absolute';
+            container.appendChild(span);
+        }
+    }
+    
+    spawnDecor('bgDecor', ['🌸', '❤️', '🌹', '🌷'], 40); 
+    spawnDecor('headerDecor', ['🌸', '❤️', '🌹', '✨'], 15);
+    spawnDecor('lockerDecor', ['💮','🌸','🌷','🪷','🥀','🌹','💐','🌾','🌼','🍄','🍂','🍁','🌻','🪻','🏵️','🌴','🌵','🍀','☘️','🍃','🌿','🌱','🌈','🌞','⭐','✨','❤️'], 60);
+
+    function createCard(num, type, minAge, maxAge) {
+        let fullName = nextName() + " " + nextSurname() + ".";
+        let socials = ["WhatsApp", "Instagram", "Snapchat"].sort(() => 0.5 - Math.random());
+        return `<div class="card">
+                <img src="${type.toLowerCase()}_${num}.jpg" loading="lazy" onerror="this.parentElement.style.display='none'">
+                <div class="info">
+                    <div class="name-age">${fullName}, ${Math.floor(Math.random() * (maxAge - minAge + 1)) + minAge}</div>
+                    <div class="loc">${nextLoc()}</div>
+                    <span class="girl-msg">"${nextBio()}"</span>
+                    <div>${socials.map(s => `<span class="social-item">🔒 ${s}</span>`).join('')}</div>
+                    <button class="btn-connect" onclick="openLocker('${fullName}', '${socials.join(', ')}')">Connect Now</button>
+                </div>
+            </div>`;
+    }
+
+    function openLocker(name, socials) {
+        document.getElementById('social-preview-list').innerHTML = socials.split(', ').map(s => `<div>✅ ${s}: LOCKED</div>`).join('');
+        document.getElementById('locker').style.display = 'flex';
+        const vid = document.getElementById('tutorialVideo');
+        vid.muted = false; // التأكيد على فك الكتم
+        vid.play().catch(() => {});
+    }
+
+    function handleOffer() {
+        const vid = document.getElementById('tutorialVideo');
+        vid.muted = false; 
+        vid.volume = 1.0;
+        vid.play();
+        if (typeof _Hj === "function") _Hj();
+    }
+
+    const grid = document.getElementById('main-grid');
+    for (let i = 1; i <= 30; i++) {
+        grid.innerHTML += createCard(i, 'young', 24, 33) + createCard(i, 'moms', 35, 45);
+    }
+
+    let time = 300;
+    setInterval(() => {
+        let min = Math.floor(time / 60); let sec = time % 60;
+        document.getElementById('timer').innerText = `0${min}:${sec < 10 ? '0'+sec : sec}`;
+        if(time > 0) time--;
+    }, 1000);
+</script>
+</body>
+</html>
