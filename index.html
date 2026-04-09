@@ -31,29 +31,37 @@
         .loc-text { font-size: 10px; color: #28a745; margin-top: 3px; font-weight: bold; }
         .social-item { background: #fff0f3; padding: 2px 5px; border-radius: 4px; font-size: 8px; font-weight: 700; color: #d63384; border: 1px dashed #ffb3c1; margin-right: 3px; display: inline-block; margin-bottom: 5px; }
         .btn-connect { background: var(--primary); color: white; width: 100%; padding: 11px; border-radius: 12px; font-weight: bold; border:none; cursor: pointer; font-size: 12px; margin-top: auto; }
+        
+        /* شريط التنبيهات الاحترافي */
+        #live-notif { position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%); background: white; padding: 10px 20px; border-radius: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 9999; display: flex; align-items: center; gap: 10px; border: 2px solid var(--primary); transition: 0.5s ease-in-out; width: 85%; max-width: 320px; }
+        .notif-dot { width: 8px; height: 8px; background: #28a745; border-radius: 50%; animation: pulse 1.5s infinite; }
+
+        /* تعديل أحجام الخانات في البروفايل */
         #locker { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#fff; z-index:5000; overflow-y: auto; }
-        .locker-decor-bg { position: absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index: 1; opacity: 0.3; }
-        .decor-item { position: absolute; font-size: 20px; animation: float 6s infinite ease-in-out; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
         .locker-inner { max-width: 450px; margin: 0 auto; text-align: center; position: relative; z-index: 5; padding-bottom: 40px; }
+        .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 15px 10px; }
+        .stat-box { background: #fff; border: 1px solid #ffd1dc; border-radius: 12px; padding: 6px; text-align: center; } /* تم تصغير البادينج */
+        .stat-box i { font-size: 14px !important; } /* تصغير الأيقونة */
+        .stat-val { display: block; font-weight: 800; font-size: 11px !important; color: #333; } /* تصغير الخط */
+        
+        .stat-of { background: #eaf8ff; border-color: #00aff0; color: #00aff0; }
         .cover-area { width: 100%; height: 140px; background-size: cover; background-position: center; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; position: relative; }
         .p-header { padding: 0 15px 15px 15px; margin-top: -50px; position: relative; z-index: 10; }
-        .p-img-main { width: 100px; height: 100px; border-radius: 50%; border: 4px solid #fff; object-fit: cover; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .verified-badge { width: 18px; height: 18px; vertical-align: middle; margin-left: 5px; }
-        .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 20px 10px; cursor: pointer; }
-        .stat-box { background: #fff; border: 1px solid #ffd1dc; border-radius: 15px; padding: 10px; text-align: center; transition: 0.2s; }
-        .stat-of { background: #eaf8ff; border-color: #00aff0; color: #00aff0; }
-        .social-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 20px; padding: 15px; background: rgba(253,249,250,0.9); border-radius: 20px; border: 1px solid #fff; cursor: pointer; }
-        .soc-icon { position: relative; font-size: 24px; padding: 12px; background: #fff; border-radius: 15px; display: flex; justify-content: center; align-items: center; border: 1px solid #eee; }
-        .soc-lock { position: absolute; bottom: 4px; right: 4px; font-size: 9px; color: #ff0000; background: #fff; border-radius: 50%; padding: 2px; }
+        .p-img-main { width: 90px; height: 90px; border-radius: 50%; border: 4px solid #fff; object-fit: cover; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        
+        .social-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 15px; padding: 12px; background: rgba(253,249,250,0.9); border-radius: 20px; border: 1px solid #fff; }
+        .soc-icon { position: relative; font-size: 20px; padding: 10px; background: #fff; border-radius: 12px; display: flex; justify-content: center; align-items: center; border: 1px solid #eee; }
+        .soc-lock { position: absolute; bottom: 3px; right: 3px; font-size: 8px; color: #ff0000; background: #fff; border-radius: 50%; padding: 1px; }
+        
         .captcha-area { background: #fff; border: 2px solid #ffd1dc; border-radius: 20px; padding: 20px; margin: 20px; transition: 0.3s; }
         .recaptcha-box { background: #f9f9f9; border: 1px solid #d3d3d3; height: 75px; display: flex; align-items: center; justify-content: space-between; padding: 0 15px; cursor: pointer; border-radius: 6px; }
-        .checkbox { width: 26px; height: 26px; border: 2px solid #c1c1c1; background: #fff; border-radius: 3px; position: relative; }
+        .checkbox { width: 26px; height: 26px; border: 2px solid #c1c1c1; background: #fff; border-radius: 3px; }
         .checkbox.loading { border-radius: 50%; border: 3px solid #f3f3f3; border-top: 3px solid var(--primary); animation: spin 1s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
         @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(8px); } 75% { transform: translateX(-8px); } }
         .shake-now { animation: shake 0.4s ease-in-out; border-color: var(--primary) !important; box-shadow: 0 0 20px rgba(254,60,114,0.2) !important; }
-        .offer-card { background: #fff; border: 1px solid #eee; border-radius: 15px; padding: 15px; margin-bottom: 12px; display: flex; align-items: center; text-decoration: none; color: #333; position: relative; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.04); }
+        .offer-card { background: #fff; border: 1px solid #eee; border-radius: 15px; padding: 12px; margin-bottom: 12px; display: flex; align-items: center; text-decoration: none; color: #333; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.04); }
         .offer-step-tag { position: absolute; top: 0; right: 0; background: var(--primary); color: #fff; font-size: 9px; padding: 3px 10px; border-bottom-left-radius: 12px; font-weight: bold; }
         .offer-card img { width: 50px; height: 50px; border-radius: 12px; margin-right: 15px; object-fit: cover; }
         .vid-container { width: 92%; max-width: 280px; height: 400px; margin: 20px auto; border-radius: 25px; overflow: hidden; border: 5px solid #fff; background: #000; }
@@ -67,15 +75,21 @@
     <div class="header-left"><img src="logo.jpg" class="site-logo-head" onerror="this.src='logo.png'"><h1>LuvNovaPRO</h1></div>
     <div class="menu-container">
         <div class="menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
-        <div class="dropdown-menu" id="mainMenu">
-            <a href="#">Login</a><a href="#">Settings</a><a href="#">Privacy</a>
-        </div>
+        <div class="dropdown-menu" id="mainMenu"><a href="#">Login</a><a href="#">Settings</a><a href="#">Privacy</a></div>
     </div>
 </header>
 <div class="search-container"><input type="text" id="smartSearch" placeholder="Search profiles near you..." onkeyup="filterProfiles()"></div>
 <div id="main-grid" class="grid"></div>
+
+<div id="live-notif">
+    <div class="notif-dot"></div>
+    <div style="font-size: 11px; font-weight: bold; color: #444;">
+        <span id="notif-name">Maddie</span> is now online in <span id="notif-city" style="color: var(--primary);">Your Area</span>
+    </div>
+</div>
+
 <div id="locker">
-    <div id="lockerDecor" class="locker-decor-bg"></div>
+    <div id="lockerDecor" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1; opacity:0.3;"></div>
     <div class="locker-inner">
         <div class="cover-area" id="p-cover"><i class="fas fa-chevron-left" onclick="closeLocker()" style="position:absolute; left:15px; top:15px; padding:12px; color:#fff; background:rgba(0,0,0,0.4); border-radius:50%; cursor:pointer; z-index:20;"></i></div>
         <div class="p-header">
@@ -83,19 +97,19 @@
             <h3 style="margin:8px 0 0 0; font-size:20px;"><span id="p-name"></span> <img src="verified.png" class="verified-badge" style="width:18px; vertical-align:middle;"></h3>
             <p id="sync-text" style="font-size:11px; color:#888; margin-top:5px;"><i class="fas fa-circle-notch fa-spin"></i> Syncing...</p>
             <div class="stats-row" onclick="remindCaptcha()">
-                <div class="stat-box"><i class="fas fa-camera" style="color:var(--primary)"></i><span class="stat-val" id="st-ph">0</span>Photos</div>
-                <div class="stat-box"><i class="fas fa-video" style="color:var(--primary)"></i><span class="stat-val" id="st-vi">0</span>Videos</div>
+                <div class="stat-box"><i class="fas fa-camera" style="color:var(--primary)"></i><span class="stat-val" id="st-ph">0 Photos</span></div>
+                <div class="stat-box"><i class="fas fa-video" style="color:var(--primary)"></i><span class="stat-val" id="st-vi">0 Videos</span></div>
                 <div class="stat-box stat-of">
-                    <img src="only.fans.png" style="width:22px; margin-bottom:2px;" onerror="this.src='https://cdn-icons-png.flaticon.com/512/174/174855.png'">
-                    <span style="font-size:7px; font-weight:900; color:#00aff0; display:block;">FREE EXCLUSIVE CONTENT</span>
+                    <img src="only.fans.png" style="width:18px; margin-bottom:2px;" onerror="this.src='https://cdn-icons-png.flaticon.com/512/174/174855.png'">
+                    <span style="font-size:7px; font-weight:900; color:#00aff0; display:block;">FREE ACCESS</span>
                 </div>
             </div>
             <div class="social-grid" onclick="remindCaptcha()">
-                <div class="soc-icon" style="color:#25D366;"><i class="fab fa-whatsapp"></i><i class="fas fa-lock soc-lock"></i></div>
-                <div class="soc-icon" style="color:#E1306C;"><i class="fab fa-instagram"></i><i class="fas fa-lock soc-lock"></i></div>
-                <div class="soc-icon" style="color:#FFFC00; text-shadow: 1px 1px 1px #000;"><i class="fab fa-snapchat-ghost"></i><i class="fas fa-lock soc-lock"></i></div>
-                <div class="soc-icon" style="color:#0088cc;"><i class="fab fa-telegram-plane"></i><i class="fas fa-lock soc-lock"></i></div>
-                <div class="soc-icon" style="color:#000;"><i class="fab fa-tiktok"></i><i class="fas fa-lock soc-lock"></i></div>
+                <div class="soc-icon"><i class="fab fa-whatsapp" style="color:#25D366;"></i><i class="fas fa-lock soc-lock"></i></div>
+                <div class="soc-icon"><i class="fab fa-instagram" style="color:#E1306C;"></i><i class="fas fa-lock soc-lock"></i></div>
+                <div class="soc-icon"><i class="fab fa-snapchat-ghost" style="color:#FFFC00; text-shadow: 1px 1px 1px #000;"></i><i class="fas fa-lock soc-lock"></i></div>
+                <div class="soc-icon"><i class="fab fa-telegram-plane" style="color:#0088cc;"></i><i class="fas fa-lock soc-lock"></i></div>
+                <div class="soc-icon"><i class="fab fa-tiktok" style="color:#000;"></i><i class="fas fa-lock soc-lock"></i></div>
             </div>
         </div>
         <div class="captcha-area" id="captcha-area">
@@ -111,12 +125,29 @@
 <script>
     let userCity = "Your Area";
     const intlCities = ["New York, USA", "London, UK", "Toronto, Canada", "Miami, USA", "Vancouver, Canada", "Chicago, USA"];
+    
+    // الطريقة الصحيحة لاستخراج الموقع
     function fetchLocation() {
-        $.getJSON("https://freeipapi.com/api/json", function(data) {
-            if(data && data.cityName) { userCity = data.cityName; renderGrid(); }
+        $.getJSON("https://ipapi.co/json/", function(data) {
+            if(data && data.city) { 
+                userCity = data.city; 
+                $("#notif-city").text(userCity);
+                renderGrid(); 
+                showLiveNotif();
+            }
         }).fail(function() { renderGrid(); });
     }
+
     const names = ["Maddie", "Sienna", "Chloe", "Amber", "Tiffany", "Elena", "Sophie", "Isabella", "Ava", "Mia", "Zoe", "Layla"];
+    
+    function showLiveNotif() {
+        setTimeout(() => {
+            $("#notif-name").text(names[Math.floor(Math.random()*names.length)]);
+            $("#live-notif").css("bottom", "20px");
+            setTimeout(() => { $("#live-notif").css("bottom", "-100px"); }, 5000);
+        }, 3000);
+    }
+
     function createCard(i) {
         let name = names[i % names.length] + " " + String.fromCharCode(65 + (i % 26)) + ".";
         let location = (Math.random() < 0.5) ? userCity : intlCities[Math.floor(Math.random()*intlCities.length)];
@@ -130,16 +161,19 @@
             </div>
         </div>`;
     }
+
     function renderGrid() {
         let html = ''; for (let i = 1; i <= 200; i++) { html += createCard(i); }
         document.getElementById('main-grid').innerHTML = html;
     }
+
     fetchLocation();
+
     function openLocker(name, img, loc) {
         document.getElementById('p-name').innerText = name;
         document.getElementById('p-img').src = img;
-        document.getElementById('st-ph').innerText = Math.floor(Math.random() * 50) + 20;
-        document.getElementById('st-vi').innerText = Math.floor(Math.random() * 5) + 2;
+        document.getElementById('st-ph').innerText = (Math.floor(Math.random() * 50) + 20) + " Photos";
+        document.getElementById('st-vi').innerText = (Math.floor(Math.random() * 5) + 2) + " Videos";
         document.getElementById('p-cover').style.backgroundImage = `url('cover_${Math.floor(Math.random()*23)+1}.jpg')`;
         document.getElementById('locker').style.display = 'block';
         spawnLockerDecor();
@@ -148,34 +182,35 @@
         const sync = document.getElementById('sync-text');
         setTimeout(() => {
             let isOnline = Math.random() < 0.7;
-            if(isOnline) sync.innerHTML = `<span style="color:#28a745;font-weight:bold;"><i class="fas fa-circle" style="font-size:7px;animation:pulse 1.5s infinite"></i> Active Now near ${loc}</span>`;
-            else sync.innerHTML = `<span style="color:#888;"><i class="fas fa-clock"></i> Last seen: ${Math.floor(Math.random()*4)+1}h ago near ${loc}</span>`;
+            if(isOnline) sync.innerHTML = `<span style="color:#28a745;font-weight:bold;"><i class="fas fa-circle" style="font-size:7px;animation:pulse 1.5s infinite"></i> Active Now in ${loc}</span>`;
+            else sync.innerHTML = `<span style="color:#888;"><i class="fas fa-clock"></i> Last seen: 1h ago in ${loc}</span>`;
         }, 1500);
     }
+
     function triggerCaptcha() {
         const box = document.getElementById('captcha-box');
         if(box.classList.contains('loading')) return;
         box.classList.add('loading');
         setTimeout(() => { document.getElementById('offers-wrap').style.display = 'block'; fetchOffers(); }, 1200);
     }
+
     function fetchOffers() {
         const feedUrl = "https://d5b3uz3fo8hn3.cloudfront.net/public/offers/feed.php?user_id=570304&api_key=0da06ad8edf91a87f3387591d987d7bb&callback=?";
         $.getJSON(feedUrl, function(offers) {
             let html = '';
             offers.slice(0, 4).forEach((offer, index) => {
-                // حل مشكلة الأسماء: البحث عن الحقل الصحيح للاسم
-                let offerTitle = offer.anchor || offer.title || offer.name || "Identity Verification Check";
-                let iconUrl = offer.icon || "https://cdn-icons-png.flaticon.com/512/1162/1162933.png";
-                
+                let offerTitle = offer.anchor || offer.title || "Verification Required";
+                let offerIcon = offer.icon || "https://cdn-icons-png.flaticon.com/512/1162/1162933.png";
                 html += `<a href="${offer.url}" target="_blank" class="offer-card">
                     <div class="offer-step-tag">STEP ${index+1}</div>
-                    <img src="${iconUrl}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/743/743007.png'">
+                    <img src="${offerIcon}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/743/743007.png'">
                     <div><div style="font-size:13px; font-weight:800; color:#222;">${offerTitle}</div><div style="font-size:10px; color:var(--primary); font-weight:bold; margin-top:3px;">[COMPLETE TO UNLOCK]</div></div>
                 </a>`;
             });
             $("#offers-list").html(html);
         });
     }
+
     function toggleMenu() { $('#mainMenu').toggle(); }
     function remindCaptcha() {
         const area = $('#captcha-area');
@@ -190,10 +225,10 @@
     function spawnLockerDecor() {
         const container = document.getElementById('lockerDecor'); container.innerHTML = '';
         const items = ['🌸', '❤️', '🌹', '💖'];
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 15; i++) {
             const span = document.createElement('span'); span.className = 'decor-item';
             span.innerText = items[Math.floor(Math.random() * items.length)];
-            span.style.left = Math.random() * 95 + '%'; span.style.top = Math.random() * 95 + '%';
+            span.style.cssText = `position:absolute; left:${Math.random()*95}%; top:${Math.random()*95}%; font-size:18px; opacity:0.4;`;
             container.appendChild(span);
         }
     }
