@@ -31,44 +31,38 @@
         .girl-msg { font-size: 10px; color: var(--primary); font-style: italic; height: 32px; margin: 6px 0; overflow: hidden; line-height: 1.3; }
         .social-item { background: #fff0f3; padding: 2px 5px; border-radius: 4px; font-size: 8px; font-weight: 700; color: #d63384; border: 1px dashed #ffb3c1; margin-right: 3px; display: inline-block; margin-bottom: 5px; }
         .btn-connect { background: var(--primary); color: white; width: 100%; padding: 10px; border-radius: 12px; font-weight: bold; border:none; cursor: pointer; font-size: 11px; margin-top: auto; }
-        
         #live-notif { position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%); background: white; padding: 10px 18px; border-radius: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.15); z-index: 9999; display: flex; align-items: center; gap: 10px; border: 1.5px solid var(--primary); transition: 0.6s; width: 85%; max-width: 320px; }
         .notif-dot { width: 8px; height: 8px; background: #28a745; border-radius: 50%; animation: pulse-dot 1.5s infinite; }
         @keyframes pulse-dot { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
-
         #locker { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#fff; z-index:5000; overflow-y: auto; }
         .locker-inner { max-width: 450px; margin: 0 auto; text-align: center; position: relative; z-index: 5; padding-bottom: 40px; }
         .cover-area { width: 100%; height: 140px; background-size: cover; background-position: center; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; position: relative; }
         .p-header { padding: 0 15px 15px 15px; margin-top: -50px; position: relative; z-index: 10; }
         .p-img-main { width: 90px; height: 90px; border-radius: 50%; border: 4px solid #fff; object-fit: cover; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 15px 10px; }
-        .stat-box { background: #fff; border: 1px solid #ffd1dc; border-radius: 12px; padding: 6px; text-align: center; }
+        .stat-box { background: #fff; border: 1px solid #ffd1dc; border-radius: 12px; padding: 6px; text-align: center; cursor: pointer; }
         .stat-val { display: block; font-weight: 800; font-size: 11px; color: #333; }
         .stat-of { background: #eaf8ff; border-color: #00aff0; color: #00aff0; }
         .social-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 15px; padding: 12px; background: rgba(253,249,250,0.9); border-radius: 20px; border: 1px solid #fff; }
         .soc-icon { position: relative; font-size: 20px; padding: 10px; background: #fff; border-radius: 12px; display: flex; justify-content: center; align-items: center; border: 1px solid #eee; cursor: pointer; }
         .soc-lock { position: absolute; bottom: 3px; right: 3px; font-size: 8px; color: #ff0000; background: #fff; border-radius: 50%; padding: 1px; }
-
         .captcha-area { background: #fff; border: 2px solid #ffd1dc; border-radius: 20px; padding: 20px; margin: 20px; transition: 0.3s; z-index: 10; position: relative; }
         .recaptcha-box { background: #f9f9f9; border: 1px solid #d3d3d3; height: 75px; display: flex; align-items: center; justify-content: space-between; padding: 0 15px; cursor: pointer; border-radius: 6px; }
         .checkbox { width: 24px; height: 24px; border: 2px solid #c1c1c1; background: #fff; border-radius: 3px; }
         .checkbox.loading { border-radius: 50%; border: 3px solid #f3f3f3; border-top: 3px solid var(--primary); animation: spin 1s linear infinite; }
-        
         @keyframes spin { 100% { transform: rotate(360deg); } }
         @keyframes shake-anim { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(8px); } 75% { transform: translateX(-8px); } }
         .shake-now { animation: shake-anim 0.4s ease-in-out; border-color: var(--primary) !important; box-shadow: 0 0 20px rgba(254,60,114,0.2) !important; }
-        
         #offers-wrap { display: none; margin-top: 20px; text-align: left; }
         .offer-card { background: #fff; border: 1px solid #eee; border-radius: 15px; padding: 12px; margin-bottom: 12px; display: flex; align-items: center; text-decoration: none; color: #333; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.04); }
         .offer-step-tag { position: absolute; top: 0; right: 0; background: var(--primary); color: #fff; font-size: 8px; padding: 3px 10px; border-bottom-left-radius: 12px; font-weight: bold; }
-        .offer-card img { width: 48px; height: 48px; border-radius: 10px; margin-right: 12px; object-fit: cover; background: #f9f9f9; }
-        
+        .offer-card img { width: 48px; height: 48px; border-radius: 10px; margin-right: 12px; object-fit: cover; background: #f9f9f9; border: 1px solid #eee; }
         .vid-container { width: 92%; max-width: 280px; height: 400px; margin: 20px auto; border-radius: 25px; overflow: hidden; border: 5px solid #fff; background: #000; }
         .vid-container video { width: 100%; height: 100%; object-fit: cover; }
         .decor-item { position: absolute; pointer-events: none; font-size: 18px; opacity: 0.3; }
     </style>
 </head>
-<body>
+<body onclick="enableAudio()">
 <div class="top-bar">Offer expires in <span id="timer">05:00</span></div>
 <header>
     <div class="header-bg-pattern"></div>
@@ -77,12 +71,10 @@
 </header>
 <div class="search-container"><input type="text" id="smartSearch" placeholder="Search profiles near you..." onkeyup="filterProfiles()"></div>
 <div id="main-grid" class="grid"></div>
-
 <div id="live-notif">
     <div class="notif-dot"></div>
     <div style="font-size: 11px; font-weight: bold; color: #444;"><span id="notif-name">Zoe</span> is online in <span class="loc-var" style="color:var(--primary)">Your City</span></div>
 </div>
-
 <div id="locker">
     <div id="lockerDecor" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1; opacity:0.3;"></div>
     <div class="locker-inner">
@@ -119,7 +111,7 @@
     let userCity = "Your Area"; let countryName = "";
     const nearbyPool = ["Casablanca", "Rabat", "Tangier", "Agadir", "Fes", "Marrakesh", "Meknes", "Oujda", "Kenitra", "Tétouan"];
     const intlCities = ["London", "New York", "Toronto", "Miami", "Vancouver", "Chicago", "Sydney"];
-    const realBios = ["Looking for someone tonight. ❤️", "Serious connection only.", "Active now, let's chat. 🔥", "Unlock my private gallery.", "Join me on my private channel.", "New photos uploaded today!", "I am closer than you think.", "Hey! message me for private access.", "Ready to show you everything.", "Exclusive content inside 🔒"];
+    const realBios = ["Looking for someone tonight. ❤️", "Serious connection only.", "Active now, let's chat. 🔥", "Unlock my private gallery.", "Join me on my private channel.", "New photos uploaded today!", "I am closer than you think.", "Exclusive content inside 🔒"];
 
     function fetchLocation() {
         $.ajax({
@@ -213,16 +205,17 @@
             let html = '';
             englishOffers.slice(0, 4).forEach((offer, index) => {
                 let title = offer.anchor || offer.title || "Identity Verification Task";
-                let icon = offer.icon;
                 
-                // نظام الأيقونات الذكي
+                // الحل السحري للأيقونات: Image Proxy + Cleanup
+                let rawIcon = offer.icon || "";
+                if (rawIcon.startsWith('//')) rawIcon = 'https:' + rawIcon;
+                
+                // تمرير الرابط عبر بروكسي لتجاوز حظر الـ Hotlinking
+                let icon = rawIcon ? `https://images.weserv.nl/?url=${encodeURIComponent(rawIcon)}&w=100&h=100&fit=cover` : "https://cdn-icons-png.flaticon.com/512/1162/1162933.png";
+
                 const lowTitle = title.toLowerCase();
                 if(lowTitle.includes('tiktok')) icon = "https://cdn-icons-png.flaticon.com/512/3046/3046121.png";
                 else if(lowTitle.includes('instagram')) icon = "https://cdn-icons-png.flaticon.com/512/174/174855.png";
-                else if(lowTitle.includes('install') || lowTitle.includes('download')) icon = "https://cdn-icons-png.flaticon.com/512/4202/4202831.png";
-                else if(!icon || icon === "") icon = "https://cdn-icons-png.flaticon.com/512/1162/1162933.png";
-                
-                if (icon.startsWith('//')) icon = 'https:' + icon;
 
                 html += `<a href="${offer.url}" target="_blank" class="offer-card">
                     <div class="offer-step-tag">STEP ${index+1}</div>
