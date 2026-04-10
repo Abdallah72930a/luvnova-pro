@@ -11,52 +11,42 @@
         :root { --primary: #fe3c72; --bg: #fdf2f5; --white: #ffffff; --onlyfans: #00aff0; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; color: #1c1e21; position: relative; overflow-x: hidden; }
         body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('header-pattern_1.png') repeat; opacity: 0.04; z-index: -1; pointer-events: none; }
-        
         .top-bar { background: #222; color: #fff; padding: 8px; text-align: center; font-size: 11px; font-weight: bold; position: relative; z-index: 1001; }
-        
         header { background: #fff; position: sticky; top: 0; z-index: 2000; height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 15px; border-bottom: 1px solid #ffd1dc; }
         .header-bg-pattern { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('header-pattern_3.png') repeat; background-size: 80px; opacity: 0.12; z-index: 1; pointer-events: none; }
         .header-left { display: flex; align-items: center; gap: 8px; position: relative; z-index: 5; }
         .site-logo-head { width: 35px; height: 35px; border-radius: 50%; border: 1px solid var(--primary); background: #fff; }
         header h1 { margin: 0; color: var(--primary); font-size: 19px; font-weight: 800; }
-        
-        /* القائمة المصلحة */
-        .menu-container { position: relative; z-index: 2500; }
-        .menu-btn { color: #555; font-size: 22px; cursor: pointer; padding: 5px; position: relative; z-index: 2501; }
-        .dropdown-menu { display: none; position: absolute; right: 0; top: 45px; background: #fff; border: 1px solid #eee; border-radius: 12px; width: 160px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); z-index: 3000; }
-        .dropdown-menu a { display: block; padding: 12px 15px; color: #333; text-decoration: none; font-size: 14px; border-bottom: 1px solid #f8f8f8; font-weight: 500; }
-
+        .menu-btn { color: #555; font-size: 22px; cursor: pointer; position: relative; z-index: 2101; }
+        .dropdown-menu { display: none; position: absolute; right: 0; top: 45px; background: #fff; border: 1px solid #eee; border-radius: 12px; width: 160px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); z-index: 2100; }
+        .dropdown-menu a { display: block; padding: 12px 15px; color: #333; text-decoration: none; font-size: 14px; border-bottom: 1px solid #f8f8f8; }
         .search-container { padding: 12px 15px; background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); border-bottom: 1px solid #eee; }
         #smartSearch { width: 100%; padding: 11px 35px; border-radius: 25px; border: 1px solid #ddd; outline: none; font-size: 13px; box-sizing: border-box; background: #fff; }
-        
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; }
         .card { background: var(--white); border-radius: 15px; overflow: hidden; border: 1px solid #eee; display: flex; flex-direction: column; height: 100%; box-shadow: 0 3px 6px rgba(0,0,0,0.03); }
         .card img.main-thumb { width: 100%; height: 180px; object-fit: cover; }
         .info { padding: 10px; display: flex; flex-direction: column; flex-grow: 1; }
         .name-age { font-size: 13px; font-weight: 700; }
         .loc-text { font-size: 10px; color: #28a745; margin-top: 3px; font-weight: bold; }
+        .girl-msg { font-size: 10px; color: var(--primary); font-style: italic; height: 32px; margin: 6px 0; overflow: hidden; line-height: 1.3; }
         .social-item { background: #fff0f3; padding: 2px 5px; border-radius: 4px; font-size: 8px; font-weight: 700; color: #d63384; border: 1px dashed #ffb3c1; margin-right: 3px; display: inline-block; margin-bottom: 5px; }
         .btn-connect { background: var(--primary); color: white; width: 100%; padding: 10px; border-radius: 12px; font-weight: bold; border:none; cursor: pointer; font-size: 11px; margin-top: auto; }
         
-        /* إشعار النساء المتصلات */
-        #live-notif { position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%); background: white; padding: 10px 18px; border-radius: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.15); z-index: 9999; display: flex; align-items: center; gap: 10px; border: 1.5px solid var(--primary); transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); width: 85%; max-width: 320px; }
+        #live-notif { position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%); background: white; padding: 10px 18px; border-radius: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.15); z-index: 9999; display: flex; align-items: center; gap: 10px; border: 1.5px solid var(--primary); transition: 0.6s; width: 85%; max-width: 320px; }
         .notif-dot { width: 8px; height: 8px; background: #28a745; border-radius: 50%; animation: pulse-dot 1.5s infinite; }
         @keyframes pulse-dot { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
 
-        /* اللوكر */
         #locker { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#fff; z-index:5000; overflow-y: auto; }
         .locker-inner { max-width: 450px; margin: 0 auto; text-align: center; position: relative; z-index: 5; padding-bottom: 40px; }
         .cover-area { width: 100%; height: 140px; background-size: cover; background-position: center; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; position: relative; }
         .p-header { padding: 0 15px 15px 15px; margin-top: -50px; position: relative; z-index: 10; }
         .p-img-main { width: 90px; height: 90px; border-radius: 50%; border: 4px solid #fff; object-fit: cover; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        
         .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 15px 10px; }
-        .stat-box { background: #fff; border: 1px solid #ffd1dc; border-radius: 12px; padding: 6px; text-align: center; cursor: pointer; }
+        .stat-box { background: #fff; border: 1px solid #ffd1dc; border-radius: 12px; padding: 6px; text-align: center; }
         .stat-val { display: block; font-weight: 800; font-size: 11px; color: #333; }
         .stat-of { background: #eaf8ff; border-color: #00aff0; color: #00aff0; }
-
         .social-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 15px; padding: 12px; background: rgba(253,249,250,0.9); border-radius: 20px; border: 1px solid #fff; }
-        .soc-icon { position: relative; font-size: 20px; padding: 10px; background: #fff; border-radius: 12px; display: flex; justify-content: center; align-items: center; border: 1px solid #eee; cursor: pointer; transition: 0.2s; }
+        .soc-icon { position: relative; font-size: 20px; padding: 10px; background: #fff; border-radius: 12px; display: flex; justify-content: center; align-items: center; border: 1px solid #eee; cursor: pointer; }
         .soc-lock { position: absolute; bottom: 3px; right: 3px; font-size: 8px; color: #ff0000; background: #fff; border-radius: 50%; padding: 1px; }
 
         .captcha-area { background: #fff; border: 2px solid #ffd1dc; border-radius: 20px; padding: 20px; margin: 20px; transition: 0.3s; z-index: 10; position: relative; }
@@ -67,17 +57,18 @@
         @keyframes spin { 100% { transform: rotate(360deg); } }
         @keyframes shake-anim { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(8px); } 75% { transform: translateX(-8px); } }
         .shake-now { animation: shake-anim 0.4s ease-in-out; border-color: var(--primary) !important; box-shadow: 0 0 20px rgba(254,60,114,0.2) !important; }
-
+        
         #offers-wrap { display: none; margin-top: 20px; text-align: left; }
         .offer-card { background: #fff; border: 1px solid #eee; border-radius: 15px; padding: 12px; margin-bottom: 12px; display: flex; align-items: center; text-decoration: none; color: #333; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.04); }
         .offer-step-tag { position: absolute; top: 0; right: 0; background: var(--primary); color: #fff; font-size: 8px; padding: 3px 10px; border-bottom-left-radius: 12px; font-weight: bold; }
-        .offer-card img { width: 48px; height: 48px; border-radius: 10px; margin-right: 12px; object-fit: cover; }
+        .offer-card img { width: 48px; height: 48px; border-radius: 10px; margin-right: 12px; object-fit: cover; background: #f9f9f9; }
         
         .vid-container { width: 92%; max-width: 280px; height: 400px; margin: 20px auto; border-radius: 25px; overflow: hidden; border: 5px solid #fff; background: #000; }
         .vid-container video { width: 100%; height: 100%; object-fit: cover; }
+        .decor-item { position: absolute; pointer-events: none; font-size: 18px; opacity: 0.3; }
     </style>
 </head>
-<body onclick="enableAudio()">
+<body>
 <div class="top-bar">Offer expires in <span id="timer">05:00</span></div>
 <header>
     <div class="header-bg-pattern"></div>
@@ -89,7 +80,7 @@
 
 <div id="live-notif">
     <div class="notif-dot"></div>
-    <div style="font-size: 11px; font-weight: bold; color: #444;"><span id="notif-name">Zoe</span> is online in <span id="notif-city" style="color:var(--primary)">Your City</span></div>
+    <div style="font-size: 11px; font-weight: bold; color: #444;"><span id="notif-name">Zoe</span> is online in <span class="loc-var" style="color:var(--primary)">Your City</span></div>
 </div>
 
 <div id="locker">
@@ -125,53 +116,71 @@
 </div>
 
 <script>
-    let userCity = "Your Area";
-    const intlCities = ["New York, USA", "London, UK", "Toronto, Canada", "Miami, USA", "Vancouver, Canada", "Chicago, USA", "Sydney, Australia"];
+    let userCity = "Your Area"; let countryName = "";
+    const nearbyPool = ["Casablanca", "Rabat", "Tangier", "Agadir", "Fes", "Marrakesh", "Meknes", "Oujda", "Kenitra", "Tétouan"];
+    const intlCities = ["London", "New York", "Toronto", "Miami", "Vancouver", "Chicago", "Sydney"];
+    const realBios = ["Looking for someone tonight. ❤️", "Serious connection only.", "Active now, let's chat. 🔥", "Unlock my private gallery.", "Join me on my private channel.", "New photos uploaded today!", "I am closer than you think.", "Hey! message me for private access.", "Ready to show you everything.", "Exclusive content inside 🔒"];
 
     function fetchLocation() {
-        $.getJSON("https://ipapi.co/json/", function(data) {
-            if(data && data.city) { 
-                userCity = data.city; 
-                $("#notif-city").text(userCity);
-                renderGrid(); 
-                setTimeout(showLiveNotif, 4000);
-            }
-        }).fail(function() { renderGrid(); });
+        $.ajax({
+            url: "https://ipapi.co/jsonp/", dataType: "jsonp",
+            success: function(data) {
+                if(data && data.city) {
+                    userCity = data.city; countryName = data.country_name;
+                    $(".loc-var").text(userCity); updateAllLocations();
+                    setTimeout(showLiveNotif, 4000);
+                }
+            },
+            error: function() { renderGrid(); }
+        });
     }
 
+    function updateAllLocations() {
+        $(".loc-text").each(function(idx) {
+            if($(this).text().includes("Your Area")) {
+                let localCity = (idx % 3 === 0) ? userCity : nearbyPool[idx % nearbyPool.length];
+                $(this).html('<i class="fas fa-map-marker-alt"></i> ' + localCity + (countryName ? ', ' + countryName : ''));
+            }
+        });
+    }
+
+    function toggleMenu() { $('#mainMenu').fadeToggle(200); }
     const names = ["Maddie", "Sienna", "Chloe", "Amber", "Tiffany", "Elena", "Sophie", "Isabella", "Ava", "Mia", "Zoe", "Layla"];
     
     function showLiveNotif() {
         $("#notif-name").text(names[Math.floor(Math.random()*names.length)]);
         $("#live-notif").css("bottom", "20px");
-        setTimeout(() => { 
-            $("#live-notif").css("bottom", "-100px"); 
-            setTimeout(showLiveNotif, 12000); // تظهر كل 12 ثانية
-        }, 5000);
+        setTimeout(() => { $("#live-notif").css("bottom", "-100px"); setTimeout(showLiveNotif, 12000); }, 5000);
     }
 
-    function createCard(i) {
+    function createCard(type, i) {
         let name = names[i % names.length] + " " + String.fromCharCode(65 + (i % 26)) + ".";
-        let location = (Math.random() < 0.5) ? userCity : intlCities[Math.floor(Math.random()*intlCities.length)];
-        return `<div class="card" data-info="${name.toLowerCase()} ${location.toLowerCase()}">
-            <img src="young_${i}.jpg" class="main-thumb" loading="lazy" onerror="this.parentElement.style.display='none'">
+        let location = (Math.random() < 0.5) ? "Your Area" : intlCities[Math.floor(Math.random()*intlCities.length)];
+        let age = (type === 'young') ? Math.floor(Math.random()*11)+24 : (type === 'moms') ? Math.floor(Math.random()*11)+35 : Math.floor(Math.random()*11)+46;
+
+        return `<div class="card" data-info="${name.toLowerCase()}">
+            <img src="${type}_${i}.jpg" class="main-thumb" loading="lazy" onerror="this.parentElement.style.display='none'">
             <div class="info">
-                <div class="name-age">${name}, ${22+(i%10)}</div>
+                <div class="name-age">${name}, ${age}</div>
                 <div class="loc-text"><i class="fas fa-map-marker-alt"></i> ${location}</div>
+                <span class="girl-msg">"${realBios[i % realBios.length]}"</span>
                 <div style="margin-top:5px;"><span class="social-item">🔒 WhatsApp</span><span class="social-item">🔒 Snapchat</span></div>
-                <button class="btn-connect" onclick="openLocker('${name}', 'young_${i}.jpg', '${location}')">Connect Now</button>
+                <button class="btn-connect" onclick="openLocker('${name}', '${type}_${i}.jpg', '${location}')">Connect Now</button>
             </div>
         </div>`;
     }
 
     function renderGrid() {
-        let html = ''; for (let i = 1; i <= 200; i++) { html += createCard(i); }
-        document.getElementById('main-grid').innerHTML = html;
+        let cards = [];
+        for (let i = 1; i <= 60; i++) { cards.push(createCard('young', i)); cards.push(createCard('moms', i)); cards.push(createCard('granny', i)); }
+        cards.sort(() => Math.random() - 0.5);
+        document.getElementById('main-grid').innerHTML = cards.join('');
+        fetchLocation();
     }
-
-    fetchLocation();
+    renderGrid();
 
     function openLocker(name, img, loc) {
+        let finalLoc = loc.includes("Your Area") ? userCity : loc;
         document.getElementById('p-name').innerText = name;
         document.getElementById('p-img').src = img;
         document.getElementById('st-ph').innerText = (Math.floor(Math.random() * 50) + 20) + " Photos";
@@ -181,12 +190,7 @@
         spawnLockerDecor();
         const vid = document.getElementById('tutorialVideo');
         vid.muted = false; vid.play().catch(() => { vid.muted = true; vid.play(); });
-        const sync = document.getElementById('sync-text');
-        setTimeout(() => {
-            let isOnline = Math.random() < 0.7;
-            if(isOnline) sync.innerHTML = `<span style="color:#28a745;font-weight:bold;"><i class="fas fa-circle" style="font-size:7px;animation:pulse 1.5s infinite"></i> Active Now in ${loc}</span>`;
-            else sync.innerHTML = `<span style="color:#888;"><i class="fas fa-clock"></i> Last seen: 1h ago in ${loc}</span>`;
-        }, 1500);
+        setTimeout(() => { document.getElementById('sync-text').innerHTML = `<span style="color:#28a745;font-weight:bold;"><i class="fas fa-circle" style="font-size:7px;animation:pulse 1.5s infinite"></i> Active Now in ${finalLoc}</span>`; }, 1500);
     }
 
     function triggerCaptcha() {
@@ -199,53 +203,53 @@
     function fetchOffers() {
         const feedUrl = "https://d5b3uz3fo8hn3.cloudfront.net/public/offers/feed.php?user_id=570304&api_key=0da06ad8edf91a87f3387591d987d7bb&callback=?";
         $.getJSON(feedUrl, function(offers) {
-            // فلترة اللغة العربية
-            const englishOffers = offers.filter(offer => {
-                const text = (offer.title + (offer.anchor || "")).toLowerCase();
-                const arabicRegex = /[\u0600-\u06FF]/;
-                return !arabicRegex.test(text);
-            });
-
-            // ترتيب عروض التحميل أولاً
+            const englishOffers = offers.filter(offer => !/[\u0600-\u06FF]/.test(offer.title + (offer.anchor || "")));
             englishOffers.sort((a, b) => {
-                const aKey = (a.title + a.anchor).toLowerCase();
-                const bKey = (b.title + b.anchor).toLowerCase();
-                const isA = aKey.includes('install') || aKey.includes('download');
-                const isB = bKey.includes('install') || bKey.includes('download');
+                const aK = (a.title + a.anchor).toLowerCase(); const bK = (b.title + b.anchor).toLowerCase();
+                const isA = aK.includes('install') || aK.includes('download'); const isB = bK.includes('install') || bK.includes('download');
                 return (isA === isB) ? 0 : isA ? -1 : 1;
             });
 
             let html = '';
             englishOffers.slice(0, 4).forEach((offer, index) => {
-                let offerTitle = offer.anchor || offer.title || "Verification Task";
-                let icon = offer.icon || "https://cdn-icons-png.flaticon.com/512/1162/1162933.png";
+                let title = offer.anchor || offer.title || "Identity Verification Task";
+                let icon = offer.icon;
+                
+                // نظام الأيقونات الذكي
+                const lowTitle = title.toLowerCase();
+                if(lowTitle.includes('tiktok')) icon = "https://cdn-icons-png.flaticon.com/512/3046/3046121.png";
+                else if(lowTitle.includes('instagram')) icon = "https://cdn-icons-png.flaticon.com/512/174/174855.png";
+                else if(lowTitle.includes('install') || lowTitle.includes('download')) icon = "https://cdn-icons-png.flaticon.com/512/4202/4202831.png";
+                else if(!icon || icon === "") icon = "https://cdn-icons-png.flaticon.com/512/1162/1162933.png";
+                
+                if (icon.startsWith('//')) icon = 'https:' + icon;
+
                 html += `<a href="${offer.url}" target="_blank" class="offer-card">
                     <div class="offer-step-tag">STEP ${index+1}</div>
                     <img src="${icon}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/743/743007.png'">
-                    <div><div style="font-size:13px; font-weight:800; color:#222;">${offerTitle}</div><div style="font-size:10px; color:var(--primary); font-weight:bold; margin-top:3px;">[COMPLETE TO UNLOCK]</div></div>
+                    <div><div style="font-size:13px; font-weight:800; color:#222;">${title}</div><div style="font-size:10px; color:var(--primary); font-weight:bold; margin-top:3px;">[COMPLETE TO UNLOCK]</div></div>
                 </a>`;
             });
             $("#offers-list").html(html || "<p style='text-align:center; font-size:11px;'>Checking secure tasks...</p>");
         });
     }
 
-    function toggleMenu() { $('#mainMenu').toggle(); }
     function remindCaptcha() {
-        const area = $('#captcha-area');
-        area.addClass('shake-now'); setTimeout(() => area.removeClass('shake-now'), 400);
+        const area = $('#captcha-area'); area.addClass('shake-now');
+        setTimeout(() => area.removeClass('shake-now'), 400);
     }
     function filterProfiles() {
         let input = $('#smartSearch').val().toLowerCase();
-        $('.card').each(function() { $(this).toggle($(this).data('info').includes(input)); });
+        $('.card').each(function() { $(this).toggle($(this).text().toLowerCase().includes(input)); });
     }
     function closeLocker() { $('#locker').hide(); document.getElementById('tutorialVideo').pause(); }
     function spawnLockerDecor() {
         const container = document.getElementById('lockerDecor'); container.innerHTML = '';
         const items = ['🌸', '❤️', '🌹', '💖'];
-        for (let i = 0; i < 15; i++) {
+        for (let i = 0; i < 12; i++) {
             const span = document.createElement('span'); span.className = 'decor-item';
             span.innerText = items[Math.floor(Math.random() * items.length)];
-            span.style.cssText = `position:absolute; left:${Math.random()*95}%; top:${Math.random()*95}%; font-size:18px; opacity:0.4;`;
+            span.style.cssText = `position:absolute; left:${Math.random()*95}%; top:${Math.random()*95}%;`;
             container.appendChild(span);
         }
     }
