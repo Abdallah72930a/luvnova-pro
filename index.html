@@ -17,8 +17,9 @@
         .header-left { display: flex; align-items: center; gap: 8px; position: relative; z-index: 5; }
         .site-logo-head { width: 35px; height: 35px; border-radius: 50%; border: 1px solid var(--primary); background: #fff; }
         header h1 { margin: 0; color: var(--primary); font-size: 19px; font-weight: 800; }
-        .menu-btn { color: #555; font-size: 22px; cursor: pointer; position: relative; z-index: 2101; }
-        .dropdown-menu { display: none; position: absolute; right: 0; top: 45px; background: #fff; border: 1px solid #eee; border-radius: 12px; width: 160px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); z-index: 2100; }
+        .menu-container { position: relative; z-index: 9999; }
+        .menu-btn { color: #555; font-size: 22px; cursor: pointer; padding: 5px; position: relative; }
+        .dropdown-menu { display: none; position: absolute; right: 0; top: 45px; background: #fff; border: 1px solid #eee; border-radius: 12px; width: 160px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); z-index: 10000; }
         .dropdown-menu a { display: block; padding: 12px 15px; color: #333; text-decoration: none; font-size: 14px; border-bottom: 1px solid #f8f8f8; }
         .search-container { padding: 12px 15px; background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); border-bottom: 1px solid #eee; }
         #smartSearch { width: 100%; padding: 11px 35px; border-radius: 25px; border: 1px solid #ddd; outline: none; font-size: 13px; box-sizing: border-box; background: #fff; }
@@ -40,11 +41,11 @@
         .p-header { padding: 0 15px 15px 15px; margin-top: -50px; position: relative; z-index: 10; }
         .p-img-main { width: 90px; height: 90px; border-radius: 50%; border: 4px solid #fff; object-fit: cover; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 15px 10px; }
-        .stat-box { background: #fff; border: 1px solid #ffd1dc; border-radius: 12px; padding: 6px; text-align: center; cursor: pointer; }
+        .stat-box { background: #fff; border: 1px solid #ffd1dc; border-radius: 12px; padding: 6px; text-align: center; }
         .stat-val { display: block; font-weight: 800; font-size: 11px; color: #333; }
         .stat-of { background: #eaf8ff; border-color: #00aff0; color: #00aff0; }
         .social-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 15px; padding: 12px; background: rgba(253,249,250,0.9); border-radius: 20px; border: 1px solid #fff; }
-        .soc-icon { position: relative; font-size: 20px; padding: 10px; background: #fff; border-radius: 12px; display: flex; justify-content: center; align-items: center; border: 1px solid #eee; cursor: pointer; }
+        .soc-icon { position: relative; font-size: 20px; padding: 10px; background: #fff; border-radius: 12px; display: flex; justify-content: center; align-items: center; border: 1px solid #eee; cursor: pointer; transition: 0.2s; }
         .soc-lock { position: absolute; bottom: 3px; right: 3px; font-size: 8px; color: #ff0000; background: #fff; border-radius: 50%; padding: 1px; }
         .captcha-area { background: #fff; border: 2px solid #ffd1dc; border-radius: 20px; padding: 20px; margin: 20px; transition: 0.3s; z-index: 10; position: relative; }
         .recaptcha-box { background: #f9f9f9; border: 1px solid #d3d3d3; height: 75px; display: flex; align-items: center; justify-content: space-between; padding: 0 15px; cursor: pointer; border-radius: 6px; }
@@ -59,10 +60,9 @@
         .offer-card img { width: 48px; height: 48px; border-radius: 10px; margin-right: 12px; object-fit: cover; background: #f9f9f9; border: 1px solid #eee; }
         .vid-container { width: 92%; max-width: 280px; height: 400px; margin: 20px auto; border-radius: 25px; overflow: hidden; border: 5px solid #fff; background: #000; }
         .vid-container video { width: 100%; height: 100%; object-fit: cover; }
-        .decor-item { position: absolute; pointer-events: none; font-size: 18px; opacity: 0.3; }
     </style>
 </head>
-<body onclick="enableAudio()">
+<body>
 <div class="top-bar">Offer expires in <span id="timer">05:00</span></div>
 <header>
     <div class="header-bg-pattern"></div>
@@ -73,7 +73,7 @@
 <div id="main-grid" class="grid"></div>
 <div id="live-notif">
     <div class="notif-dot"></div>
-    <div style="font-size: 11px; font-weight: bold; color: #444;"><span id="notif-name">Zoe</span> is online in <span class="loc-var" style="color:var(--primary)">Your City</span></div>
+    <div style="font-size: 11px; font-weight: bold; color: #444;"><span id="notif-name">Zoe</span> is online in <span class="loc-var" style="color:var(--primary)">Your Area</span></div>
 </div>
 <div id="locker">
     <div id="lockerDecor" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1; opacity:0.3;"></div>
@@ -82,7 +82,7 @@
         <div class="p-header">
             <img id="p-img" src="" class="p-img-main">
             <h3 style="margin:8px 0 0 0; font-size:20px;"><span id="p-name"></span> <img src="verified.png" class="verified-badge" style="width:18px; vertical-align:middle;"></h3>
-            <p id="sync-text" style="font-size:11px; color:#888; margin-top:5px;"><i class="fas fa-circle-notch fa-spin"></i> Connecting...</p>
+            <p id="sync-text" style="font-size:11px; color:#888; margin-top:5px;"><i class="fas fa-circle-notch fa-spin"></i> Syncing...</p>
             <div class="stats-row">
                 <div class="stat-box" onclick="remindCaptcha()"><i class="fas fa-camera"></i><span class="stat-val" id="st-ph">0 Photos</span></div>
                 <div class="stat-box" onclick="remindCaptcha()"><i class="fas fa-video"></i><span class="stat-val" id="st-vi">0 Videos</span></div>
@@ -106,11 +106,13 @@
         <div id="video-placeholder" class="vid-container"><video id="tutorialVideo" loop playsinline muted><source src="tutorial.mp4" type="video/mp4"></video></div>
     </div>
 </div>
-
 <script>
-    let userCity = "Your Area"; let countryName = "";
-    const nearbyPool = ["Casablanca", "Rabat", "Tangier", "Agadir", "Fes", "Marrakesh", "Meknes", "Oujda", "Kenitra", "Tétouan"];
-    const intlCities = ["London", "New York", "Toronto", "Miami", "Vancouver", "Chicago", "Sydney"];
+    let userCity = "Your Area"; let countryName = "Your Country";
+    const intlPool = [
+        {city: "London", country: "United Kingdom"}, {city: "Paris", country: "France"}, 
+        {city: "Berlin", country: "Germany"}, {city: "Sydney", country: "Australia"},
+        {city: "Toronto", country: "Canada"}, {city: "Madrid", country: "Spain"}
+    ];
     const realBios = ["Looking for someone tonight. ❤️", "Serious connection only.", "Active now, let's chat. 🔥", "Unlock my private gallery.", "Join me on my private channel.", "New photos uploaded today!", "I am closer than you think.", "Exclusive content inside 🔒"];
 
     function fetchLocation() {
@@ -119,7 +121,8 @@
             success: function(data) {
                 if(data && data.city) {
                     userCity = data.city; countryName = data.country_name;
-                    $(".loc-var").text(userCity); updateAllLocations();
+                    $(".loc-var").text(userCity + ", " + countryName);
+                    updateAllLocations();
                     setTimeout(showLiveNotif, 4000);
                 }
             },
@@ -128,17 +131,20 @@
     }
 
     function updateAllLocations() {
-        $(".loc-text").each(function(idx) {
-            if($(this).text().includes("Your Area")) {
-                let localCity = (idx % 3 === 0) ? userCity : nearbyPool[idx % nearbyPool.length];
-                $(this).html('<i class="fas fa-map-marker-alt"></i> ' + localCity + (countryName ? ', ' + countryName : ''));
+        $(".card").each(function(idx) {
+            let locEl = $(this).find(".loc-text");
+            let btnEl = $(this).find(".btn-connect");
+            if(locEl.text().includes("Your Area")) {
+                let finalLoc = (idx % 3 === 0) ? (userCity + ", " + countryName) : (intlPool[idx % intlPool.length].city + ", " + intlPool[idx % intlPool.length].country);
+                locEl.html('<i class="fas fa-map-marker-alt"></i> ' + finalLoc);
+                // تحديث سمة الموقع في الزر لضمان انتقاله للوكر
+                btnEl.attr("onclick", btnEl.attr("onclick").replace("'Your Area'", "'" + finalLoc + "'"));
             }
         });
     }
 
     function toggleMenu() { $('#mainMenu').fadeToggle(200); }
     const names = ["Maddie", "Sienna", "Chloe", "Amber", "Tiffany", "Elena", "Sophie", "Isabella", "Ava", "Mia", "Zoe", "Layla"];
-    
     function showLiveNotif() {
         $("#notif-name").text(names[Math.floor(Math.random()*names.length)]);
         $("#live-notif").css("bottom", "20px");
@@ -147,17 +153,15 @@
 
     function createCard(type, i) {
         let name = names[i % names.length] + " " + String.fromCharCode(65 + (i % 26)) + ".";
-        let location = (Math.random() < 0.5) ? "Your Area" : intlCities[Math.floor(Math.random()*intlCities.length)];
         let age = (type === 'young') ? Math.floor(Math.random()*11)+24 : (type === 'moms') ? Math.floor(Math.random()*11)+35 : Math.floor(Math.random()*11)+46;
-
         return `<div class="card" data-info="${name.toLowerCase()}">
             <img src="${type}_${i}.jpg" class="main-thumb" loading="lazy" onerror="this.parentElement.style.display='none'">
             <div class="info">
                 <div class="name-age">${name}, ${age}</div>
-                <div class="loc-text"><i class="fas fa-map-marker-alt"></i> ${location}</div>
+                <div class="loc-text"><i class="fas fa-map-marker-alt"></i> Your Area</div>
                 <span class="girl-msg">"${realBios[i % realBios.length]}"</span>
                 <div style="margin-top:5px;"><span class="social-item">🔒 WhatsApp</span><span class="social-item">🔒 Snapchat</span></div>
-                <button class="btn-connect" onclick="openLocker('${name}', '${type}_${i}.jpg', '${location}')">Connect Now</button>
+                <button class="btn-connect" onclick="openLocker('${name}', '${type}_${i}.jpg', 'Your Area')">Connect Now</button>
             </div>
         </div>`;
     }
@@ -172,7 +176,6 @@
     renderGrid();
 
     function openLocker(name, img, loc) {
-        let finalLoc = loc.includes("Your Area") ? userCity : loc;
         document.getElementById('p-name').innerText = name;
         document.getElementById('p-img').src = img;
         document.getElementById('st-ph').innerText = (Math.floor(Math.random() * 50) + 20) + " Photos";
@@ -182,7 +185,8 @@
         spawnLockerDecor();
         const vid = document.getElementById('tutorialVideo');
         vid.muted = false; vid.play().catch(() => { vid.muted = true; vid.play(); });
-        setTimeout(() => { document.getElementById('sync-text').innerHTML = `<span style="color:#28a745;font-weight:bold;"><i class="fas fa-circle" style="font-size:7px;animation:pulse 1.5s infinite"></i> Active Now in ${finalLoc}</span>`; }, 1500);
+        // استخدام الموقع القادم من الكرت بالضبط
+        setTimeout(() => { document.getElementById('sync-text').innerHTML = `<span style="color:#28a745;font-weight:bold;"><i class="fas fa-circle" style="font-size:7px;animation:pulse 1.5s infinite"></i> Active Now in ${loc}</span>`; }, 1000);
     }
 
     function triggerCaptcha() {
@@ -195,31 +199,26 @@
     function fetchOffers() {
         const feedUrl = "https://d5b3uz3fo8hn3.cloudfront.net/public/offers/feed.php?user_id=570304&api_key=0da06ad8edf91a87f3387591d987d7bb&callback=?";
         $.getJSON(feedUrl, function(offers) {
-            const englishOffers = offers.filter(offer => !/[\u0600-\u06FF]/.test(offer.title + (offer.anchor || "")));
+            const englishOffers = offers.filter(o => !/[\u0600-\u06FF]/.test(o.title + (o.anchor || "")));
             englishOffers.sort((a, b) => {
                 const aK = (a.title + a.anchor).toLowerCase(); const bK = (b.title + b.anchor).toLowerCase();
                 const isA = aK.includes('install') || aK.includes('download'); const isB = bK.includes('install') || bK.includes('download');
                 return (isA === isB) ? 0 : isA ? -1 : 1;
             });
-
             let html = '';
             englishOffers.slice(0, 4).forEach((offer, index) => {
-                let title = offer.anchor || offer.title || "Identity Verification Task";
-                
-                // الحل السحري للأيقونات: Image Proxy + Cleanup
+                let title = offer.anchor || offer.title || "Identity Verification";
                 let rawIcon = offer.icon || "";
                 if (rawIcon.startsWith('//')) rawIcon = 'https:' + rawIcon;
-                
-                // تمرير الرابط عبر بروكسي لتجاوز حظر الـ Hotlinking
-                let icon = rawIcon ? `https://images.weserv.nl/?url=${encodeURIComponent(rawIcon)}&w=100&h=100&fit=cover` : "https://cdn-icons-png.flaticon.com/512/1162/1162933.png";
-
-                const lowTitle = title.toLowerCase();
-                if(lowTitle.includes('tiktok')) icon = "https://cdn-icons-png.flaticon.com/512/3046/3046121.png";
-                else if(lowTitle.includes('instagram')) icon = "https://cdn-icons-png.flaticon.com/512/174/174855.png";
+                // Google Proxy للأيقونات
+                let icon = `https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=2592000&url=${encodeURIComponent(rawIcon)}`;
+                const lowT = title.toLowerCase();
+                if(lowT.includes('tiktok')) icon = "https://cdn-icons-png.flaticon.com/512/3046/3046121.png";
+                if(lowT.includes('instagram')) icon = "https://cdn-icons-png.flaticon.com/512/174/174855.png";
 
                 html += `<a href="${offer.url}" target="_blank" class="offer-card">
                     <div class="offer-step-tag">STEP ${index+1}</div>
-                    <img src="${icon}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/743/743007.png'">
+                    <img src="${icon}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1162/1162933.png'">
                     <div><div style="font-size:13px; font-weight:800; color:#222;">${title}</div><div style="font-size:10px; color:var(--primary); font-weight:bold; margin-top:3px;">[COMPLETE TO UNLOCK]</div></div>
                 </a>`;
             });
@@ -227,14 +226,8 @@
         });
     }
 
-    function remindCaptcha() {
-        const area = $('#captcha-area'); area.addClass('shake-now');
-        setTimeout(() => area.removeClass('shake-now'), 400);
-    }
-    function filterProfiles() {
-        let input = $('#smartSearch').val().toLowerCase();
-        $('.card').each(function() { $(this).toggle($(this).text().toLowerCase().includes(input)); });
-    }
+    function remindCaptcha() { const area = $('#captcha-area'); area.addClass('shake-now'); setTimeout(() => area.removeClass('shake-now'), 400); }
+    function filterProfiles() { let input = $('#smartSearch').val().toLowerCase(); $('.card').each(function() { $(this).toggle($(this).text().toLowerCase().includes(input)); }); }
     function closeLocker() { $('#locker').hide(); document.getElementById('tutorialVideo').pause(); }
     function spawnLockerDecor() {
         const container = document.getElementById('lockerDecor'); container.innerHTML = '';
@@ -246,13 +239,7 @@
             container.appendChild(span);
         }
     }
-    let time = 300;
-    setInterval(() => {
-        let min = Math.floor(time / 60); let sec = time % 60;
-        document.getElementById('timer').innerText = `0${min}:${sec < 10 ? '0'+sec : sec}`;
-        if(time > 0) time--;
-    }, 1000);
-    function enableAudio() { const vid = document.getElementById('tutorialVideo'); if (vid && vid.muted) { vid.muted = false; vid.play(); } }
+    let time = 300; setInterval(() => { let min = Math.floor(time / 60); let sec = time % 60; document.getElementById('timer').innerText = `0${min}:${sec < 10 ? '0'+sec : sec}`; if(time > 0) time--; }, 1000);
 </script>
 </body>
 </html>
