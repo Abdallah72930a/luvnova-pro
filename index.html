@@ -589,99 +589,58 @@
     // ============================================
     // COPYRIGHT PROTECTION & INTERACTION SECURITY
     // ============================================
-    document.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
-        return false;
-    });
-
-    document.addEventListener('copy', function(e) {
-        e.preventDefault();
-        return false;
-    });
-
-    document.addEventListener('cut', function(e) {
-        e.preventDefault();
-        return false;
-    });
-
-    document.addEventListener('selectstart', function(e) {
-        e.preventDefault();
-        return false;
-    });
-
-    // Disable developer tools (F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C)
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C'))) {
-            e.preventDefault();
-            return false;
-        }
-    });
+    document.addEventListener('contextmenu', function(e) { e.preventDefault(); return false; });
+    document.addEventListener('copy', function(e) { e.preventDefault(); return false; });
+    document.addEventListener('cut', function(e) { e.preventDefault(); return false; });
+    document.addEventListener('selectstart', function(e) { e.preventDefault(); return false; });
+    document.addEventListener('keydown', function(e) { if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C'))) { e.preventDefault(); return false; } });
 
     // ============================================
     // CORE APPLICATION LOGIC
     // ============================================
     let userCity = "Your Area";
     let countryName = "Your Country";
-    let currentLocationData = {}; // Store location data for consistency
-    let currentProfileLocation = null; // ✅ STORE CURRENT PROFILE LOCATION
+    let currentLocationData = {}; 
+    let currentProfileLocation = null; 
 
     const intlPool = [
-        {city: "London", country: "United Kingdom"}, 
-        {city: "Paris", country: "France"}, 
-        {city: "Berlin", country: "Germany"}, 
-        {city: "Sydney", country: "Australia"},
-        {city: "Toronto", country: "Canada"}, 
-        {city: "Madrid", country: "Spain"}
+        {city: "London", country: "United Kingdom"}, {city: "Paris", country: "France"}, 
+        {city: "Berlin", country: "Germany"}, {city: "Sydney", country: "Australia"},
+        {city: "Toronto", country: "Canada"}, {city: "Madrid", country: "Spain"}
     ];
 
     const realBios = [
-        "Looking for someone tonight. ❤️", 
-        "Serious connection only.", 
-        "Active now, let's chat. 🔥", 
-        "Unlock my private gallery.", 
-        "Join me on my private channel.", 
-        "New photos uploaded today!", 
-        "I am closer than you think.", 
-        "Exclusive content inside 🔒"
+        "Looking for someone tonight. ❤️", "Serious connection only.", 
+        "Active now, let's chat. 🔥", "Unlock my private gallery.", 
+        "Join me on my private channel.", "New photos uploaded today!", 
+        "I am closer than you think.", "Exclusive content inside 🔒"
     ];
 
     // ============================================
-    // IMAGE PROXY FUNCTION (Mobile Optimization)
+    // IMAGE PROXY FUNCTION (UPDATED TO weserv.nl)
     // ============================================
     function getProxiedImageUrl(originalUrl) {
-        // Using Google Proxy for fast, mobile-optimized image loading
-        return `https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=2592000&url=${encodeURIComponent(originalUrl)}`;
+        if (!originalUrl) return 'https://cdn-icons-png.flaticon.com/512/1162/1162933.png';
+        if (originalUrl.startsWith('//')) originalUrl = 'https:' + originalUrl;
+        return `https://images.weserv.nl/?url=${encodeURIComponent(originalUrl)}`;
     }
 
-    // ============================================
-    // HAPTIC FEEDBACK SIMULATION
-    // ============================================
-    function triggerHapticFeedback() {
-        if (navigator.vibrate) {
-            navigator.vibrate(10);
-        }
-    }
+    function triggerHapticFeedback() { if (navigator.vibrate) { navigator.vibrate(10); } }
 
-    // ============================================
-    // LOCATION FETCHING & SYNCING
-    // ============================================
     function fetchLocation() {
         $.ajax({
             url: "https://ipapi.co/jsonp/",
             dataType: "jsonp",
             success: function(data) {
                 if(data && data.city) {
-                    userCity = data.city;
-                    countryName = data.country_name;
+                    userCity = data.city; countryName = data.country_name;
                     currentLocationData = {city: userCity, country: countryName};
                     $(".loc-var").text(userCity + ", " + countryName);
                     updateAllLocations();
                     setTimeout(showLiveNotif, 4000);
                 }
             },
-            error: function() { 
-                renderGrid(); 
-            }
+            error: function() { renderGrid(); }
         });
     }
 
@@ -691,7 +650,6 @@
             let btnEl = $(this).find(".btn-connect");
             if(locEl.text().includes("Your Area")) {
                 let finalLoc;
-                // Store location consistently: 70% user's location, 30% international
                 if(idx % 3 === 0) {
                     finalLoc = userCity + ", " + countryName;
                     $(this).data("cardLocation", {city: userCity, country: countryName, display: finalLoc});
@@ -706,67 +664,37 @@
         });
     }
 
-    // ============================================
-    // SKELETON LOADING & ANIMATION
-    // ============================================
     function createSkeletonCard() {
-        return `<div class="card-skeleton">
-            <div class="skeleton-thumb"></div>
-            <div class="skeleton-info">
-                <div class="skeleton-line" style="width: 70%;"></div>
-                <div class="skeleton-line" style="width: 50%;"></div>
-                <div class="skeleton-line" style="width: 100%; height: 30px; margin-top: auto;"></div>
-            </div>
-        </div>`;
+        return `<div class="card-skeleton"><div class="skeleton-thumb"></div><div class="skeleton-info"><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line" style="height: 30px; margin-top: auto;"></div></div></div>`;
     }
 
     function showSkeletonLoading() {
         let skeletons = '';
-        for(let i = 0; i < 6; i++) {
-            skeletons += createSkeletonCard();
-        }
+        for(let i = 0; i < 6; i++) { skeletons += createSkeletonCard(); }
         document.getElementById('main-grid').innerHTML = skeletons;
     }
 
-    // ============================================
-    // PROFILE CARD SHUFFLING (Data Shuffling)
-    // ============================================
     function shuffleArray(array) {
         const shuffled = [...array];
-        for (let i = shuffled.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-        }
+        for (let i = shuffled.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; }
         return shuffled;
     }
 
-    // ============================================
-    // UI INTERACTION FUNCTIONS
-    // ============================================
-    function toggleMenu() { 
-        $('#mainMenu').fadeToggle(200); 
-    }
+    function toggleMenu() { $('#mainMenu').fadeToggle(200); }
 
     const names = ["Maddie", "Sienna", "Chloe", "Amber", "Tiffany", "Elena", "Sophie", "Isabella", "Ava", "Mia", "Zoe", "Layla"];
 
     function showLiveNotif() {
         $("#notif-name").text(names[Math.floor(Math.random()*names.length)]);
-        $(".loc-var").text(userCity + ", " + countryName); // Ensure location sync in notification
+        $(".loc-var").text(userCity + ", " + countryName);
         $("#live-notif").css("bottom", "20px");
-        setTimeout(() => { 
-            $("#live-notif").css("bottom", "-100px"); 
-            setTimeout(showLiveNotif, 12000); 
-        }, 5000);
+        setTimeout(() => { $("#live-notif").css("bottom", "-100px"); setTimeout(showLiveNotif, 12000); }, 5000);
     }
 
-    // ============================================
-    // CARD CREATION
-    // ============================================
     function createCard(type, i) {
         let name = names[i % names.length] + " " + String.fromCharCode(65 + (i % 26)) + ".";
         let age = (type === 'young') ? Math.floor(Math.random()*11)+24 : (type === 'moms') ? Math.floor(Math.random()*11)+35 : Math.floor(Math.random()*11)+46;
-        let locationDisplay = "Your Area"; // Default, will be updated by updateAllLocations()
-        
+        let locationDisplay = "Your Area";
         return `<div class="card" data-info="${name.toLowerCase()}" data-type="${type}" data-index="${i}" onclick="handleCardClick(this)">
             <img src="${type}_${i}.jpg" class="main-thumb" loading="lazy" onerror="this.parentElement.style.display='none'">
             <div class="info">
@@ -779,33 +707,14 @@
         </div>`;
     }
 
-    function handleCardClick(cardElement) {
-        // Add scale animation
-        cardElement.classList.add('scale-click');
-        setTimeout(() => {
-            cardElement.classList.remove('scale-click');
-        }, 400);
-    }
+    function handleCardClick(cardElement) { cardElement.classList.add('scale-click'); setTimeout(() => cardElement.classList.remove('scale-click'), 400); }
 
-    // ============================================
-    // GRID RENDERING WITH SHUFFLING
-    // ============================================
     function renderGrid() {
-        // Show skeleton loading first
         showSkeletonLoading();
-
-        // After 1 second, render the actual cards
         setTimeout(() => {
             let cards = [];
-            for (let i = 1; i <= 60; i++) { 
-                cards.push(createCard('young', i)); 
-                cards.push(createCard('moms', i)); 
-                cards.push(createCard('granny', i)); 
-            }
-            
-            // Shuffle cards on each page load (Data Shuffling)
+            for (let i = 1; i <= 60; i++) { cards.push(createCard('young', i)); cards.push(createCard('moms', i)); cards.push(createCard('granny', i)); }
             cards = shuffleArray(cards);
-            
             document.getElementById('main-grid').innerHTML = cards.join('');
             fetchLocation();
         }, 1000);
@@ -813,164 +722,64 @@
 
     renderGrid();
 
-    // ============================================
-    // LOCKER OPENING & PROFILE DISPLAY (FIXED)
-    // ============================================
     function openLocker(name, img, location) {
-        // ✅ STORE THE PROFILE LOCATION PROPERLY
         currentProfileLocation = location;
-        
         document.getElementById('p-name').innerText = name;
         document.getElementById('p-img').src = img;
         document.getElementById('st-ph').innerText = (Math.floor(Math.random() * 50) + 20) + " Photos";
         document.getElementById('st-vi').innerText = (Math.floor(Math.random() * 5) + 2) + " Videos";
         document.getElementById('p-cover').style.backgroundImage = `url('cover_${Math.floor(Math.random()*23)+1}.jpg')`;
         document.getElementById('locker').style.display = 'block';
-        
         spawnLockerDecor();
-        
         const vid = document.getElementById('tutorialVideo');
-        vid.muted = false; 
-        vid.play().catch(() => { 
-            vid.muted = true; 
-            vid.play(); 
-        });
-        
-        // ✅ FIX: Display the PROFILE'S location, not the user's location
-        setTimeout(() => { 
-            document.getElementById('sync-text').innerHTML = `<span style="color:#28a745;font-weight:bold;"><i class="fas fa-circle" style="font-size:7px;animation:pulse 1.5s infinite"></i> Active Now in ${currentProfileLocation}</span>`; 
-        }, 1000);
+        vid.muted = false; vid.play().catch(() => { vid.muted = true; vid.play(); });
+        setTimeout(() => { document.getElementById('sync-text').innerHTML = `<span style="color:#28a745;font-weight:bold;"><i class="fas fa-circle" style="font-size:7px;animation:pulse 1.5s infinite"></i> Active Now in ${currentProfileLocation}</span>`; }, 1000);
     }
 
     function handleConnectClick(event, buttonElement) {
-        event.stopPropagation();
-        
-        // Haptic feedback
-        triggerHapticFeedback();
-        
-        // Visual pulse effect
-        buttonElement.classList.add('pulse');
-        setTimeout(() => {
-            buttonElement.classList.remove('pulse');
-        }, 600);
-
-        // ✅ GET LOCATION FROM DATA ATTRIBUTE (THE CARD'S LOCATION)
-        const name = buttonElement.getAttribute('data-name');
-        const img = buttonElement.getAttribute('data-img');
-        const location = buttonElement.getAttribute('data-location');
-        
-        openLocker(name, img, location);
+        event.stopPropagation(); triggerHapticFeedback();
+        buttonElement.classList.add('pulse'); setTimeout(() => buttonElement.classList.remove('pulse'), 600);
+        openLocker(buttonElement.getAttribute('data-name'), buttonElement.getAttribute('data-img'), buttonElement.getAttribute('data-location'));
     }
 
-    // ============================================
-    // CAPTCHA & OFFERS
-    // ============================================
     function triggerCaptcha() {
         const box = document.getElementById('captcha-box');
         if(box.classList.contains('loading')) return;
-        box.classList.add('loading');
-        
-        // Haptic feedback
-        triggerHapticFeedback();
-        
-        setTimeout(() => { 
-            document.getElementById('offers-wrap').style.display = 'block'; 
-            fetchOffers(); 
-        }, 1200);
+        box.classList.add('loading'); triggerHapticFeedback();
+        setTimeout(() => { document.getElementById('offers-wrap').style.display = 'block'; fetchOffers(); }, 1200);
     }
 
     function fetchOffers() {
         const feedUrl = "https://d5b3uz3fo8hn3.cloudfront.net/public/offers/feed.php?user_id=570304&api_key=0da06ad8edf91a87f3387591d987d7bb&callback=?";
         $.getJSON(feedUrl, function(offers) {
-            const englishOffers = offers.filter(o => !/[\u0600-\u06FF]/.test(o.title + (o.anchor || "")));
-            englishOffers.sort((a, b) => {
-                const aK = (a.title + a.anchor).toLowerCase(); 
-                const bK = (b.title + b.anchor).toLowerCase();
-                const isA = aK.includes('install') || aK.includes('download'); 
-                const isB = bK.includes('install') || bK.includes('download');
-                return (isA === isB) ? 0 : isA ? -1 : 1;
-            });
-            
             let html = '';
-            englishOffers.slice(0, 4).forEach((offer, index) => {
-                let title = offer.anchor || offer.title || "Identity Verification";
-                let rawIcon = offer.icon || "";
-                
-                if (rawIcon.startsWith('//')) rawIcon = 'https:' + rawIcon;
-                
-                // Image Optimization: Safe proxy for icon loading
-                let icon = getProxiedImageUrl(rawIcon);
-                
-                const lowT = title.toLowerCase();
-                if(lowT.includes('tiktok')) icon = getProxiedImageUrl("https://cdn-icons-png.flaticon.com/512/3046/3046121.png");
-                if(lowT.includes('instagram')) icon = getProxiedImageUrl("https://cdn-icons-png.flaticon.com/512/174/174855.png");
-
+            const englishOffers = offers.filter(o => !/[\u0600-\u06FF]/.test(o.title)).slice(0, 4);
+            englishOffers.forEach((offer, index) => {
+                let icon = getProxiedImageUrl(offer.icon);
                 html += `<a href="${offer.url}" target="_blank" class="offer-card">
                     <div class="offer-step-tag">STEP ${index+1}</div>
                     <img src="${icon}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1162/1162933.png'">
-                    <div><div style="font-size:13px; font-weight:800; color:#222;">${title}</div><div style="font-size:10px; color:var(--primary); font-weight:bold; margin-top:3px;">[COMPLETE TO UNLOCK]</div></div>
+                    <div><div style="font-size:13px; font-weight:800; color:#222;">${offer.anchor || offer.title}</div><div style="font-size:10px; color:var(--primary); font-weight:bold; margin-top:3px;">[COMPLETE TO UNLOCK]</div></div>
                 </a>`;
             });
-            
             $("#offers-list").html(html || "<p style='text-align:center; font-size:11px;'>Checking secure tasks...</p>");
         });
     }
 
-    // ============================================
-    // UTILITY FUNCTIONS
-    // ============================================
-    function remindCaptcha() { 
-        const area = $('#captcha-area'); 
-        area.addClass('shake-now'); 
-        setTimeout(() => area.removeClass('shake-now'), 400);
-        triggerHapticFeedback();
-    }
+    function remindCaptcha() { const area = $('#captcha-area'); area.addClass('shake-now'); setTimeout(() => area.removeClass('shake-now'), 400); triggerHapticFeedback(); }
+    function filterProfiles() { let input = $('#smartSearch').val().toLowerCase(); $('.card').each(function() { $(this).toggle($(this).text().toLowerCase().includes(input)); }); }
+    function closeLocker() { $('#locker').hide(); document.getElementById('tutorialVideo').pause(); currentProfileLocation = null; }
 
-    function filterProfiles() { 
-        let input = $('#smartSearch').val().toLowerCase(); 
-        $('.card').each(function() { 
-            $(this).toggle($(this).text().toLowerCase().includes(input)); 
-        }); 
-    }
-
-    function closeLocker() { 
-        $('#locker').hide(); 
-        document.getElementById('tutorialVideo').pause();
-        currentProfileLocation = null; // ✅ RESET LOCATION
-    }
-
-    // ============================================
-    // LOCKER DECORATION SPAWNER
-    // ============================================
     function spawnLockerDecor() {
-        const decor = document.getElementById('lockerDecor');
-        decor.innerHTML = '';
+        const decor = document.getElementById('lockerDecor'); decor.innerHTML = '';
         for(let i = 0; i < 15; i++) {
             const el = document.createElement('div');
-            el.style.cssText = `
-                position: absolute;
-                width: ${Math.random()*60+20}px;
-                height: ${Math.random()*60+20}px;
-                background: rgba(254, 60, 114, ${Math.random()*0.1+0.02});
-                border-radius: 50%;
-                left: ${Math.random()*100}%;
-                top: ${Math.random()*100}%;
-                animation: float ${Math.random()*20+15}s infinite ease-in-out;
-            `;
+            el.style.cssText = `position: absolute; width: ${Math.random()*60+20}px; height: ${Math.random()*60+20}px; background: rgba(254, 60, 114, ${Math.random()*0.1+0.02}); border-radius: 50%; left: ${Math.random()*100}%; top: ${Math.random()*100}%; animation: float ${Math.random()*20+15}s infinite ease-in-out;`;
             decor.appendChild(el);
         }
     }
 
-    // Add float animation
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-    `;
-    document.head.appendChild(style);
+    const style = document.createElement('style'); style.textContent = `@keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }`; document.head.appendChild(style);
 </script>
-
 </body>
 </html>
