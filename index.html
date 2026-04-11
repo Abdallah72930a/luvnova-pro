@@ -94,7 +94,6 @@
             justify-content: space-between; 
             padding: 0 15px; 
             border-bottom: 1px solid #ffd1dc;
-            /* Glassmorphism for header */
             backdrop-filter: blur(10px);
             background: rgba(255, 255, 255, 0.85);
         }
@@ -117,7 +116,6 @@
             width: 160px; 
             box-shadow: 0 8px 20px rgba(0,0,0,0.15); 
             z-index: 10000;
-            /* Glassmorphism */
             backdrop-filter: blur(10px);
             background: rgba(255, 255, 255, 0.9);
         }
@@ -163,9 +161,6 @@
         
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; }
         
-        /* ============================================ */
-        /* SKELETON LOADING (Professional Touch #3) */
-        /* ============================================ */
         .skeleton {
             animation: skeleton-loading 1s linear infinite alternate;
         }
@@ -206,23 +201,10 @@
             animation: skeleton-loading 1s linear infinite alternate;
         }
 
-        .card-skeleton .skeleton-line:nth-child(1) {
-            width: 70%;
-        }
+        .card-skeleton .skeleton-line:nth-child(1) { width: 70%; }
+        .card-skeleton .skeleton-line:nth-child(2) { width: 50%; }
+        .card-skeleton .skeleton-line:nth-child(3) { width: 100%; height: 30px; margin-top: auto; }
 
-        .card-skeleton .skeleton-line:nth-child(2) {
-            width: 50%;
-        }
-
-        .card-skeleton .skeleton-line:nth-child(3) {
-            width: 100%;
-            height: 30px;
-            margin-top: auto;
-        }
-
-        /* ============================================ */
-        /* PREMIUM UI EFFECTS (Professional Touch #1) */
-        /* ============================================ */
         .card { 
             background: var(--white); 
             border-radius: 15px; 
@@ -232,7 +214,6 @@
             flex-direction: column; 
             height: 100%; 
             box-shadow: 0 3px 6px rgba(0,0,0,0.03);
-            /* Glassmorphism */
             backdrop-filter: blur(10px);
             background: rgba(255, 255, 255, 0.9);
             transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -240,7 +221,6 @@
             position: relative;
         }
 
-        /* Scale up animation on hover/click */
         .card:hover {
             transform: scale(1.05);
             box-shadow: 0 15px 30px rgba(254, 60, 114, 0.15);
@@ -281,9 +261,6 @@
             transform: translateY(-2px);
         }
         
-        /* ============================================ */
-        /* HAPTIC FEEDBACK SIMULATION (Professional Touch #5) */
-        /* ============================================ */
         .btn-connect { 
             background: var(--primary); 
             color: white; 
@@ -300,32 +277,17 @@
             overflow: hidden;
         }
 
-        .btn-connect:active {
-            transform: scale(0.98);
-        }
+        .btn-connect:active { transform: scale(0.98); }
+        .btn-connect:hover { background: #ff1a4d; box-shadow: 0 5px 15px rgba(254, 60, 114, 0.3); }
 
-        .btn-connect:hover {
-            background: #ff1a4d;
-            box-shadow: 0 5px 15px rgba(254, 60, 114, 0.3);
-        }
-
-        /* Pulse effect for haptic feedback */
         .btn-connect.pulse {
             animation: buttonPulse 0.6s ease-out;
         }
 
         @keyframes buttonPulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(254, 60, 114, 0.7);
-                transform: scale(1);
-            }
-            50% {
-                box-shadow: 0 0 0 10px rgba(254, 60, 114, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(254, 60, 114, 0);
-                transform: scale(1);
-            }
+            0% { box-shadow: 0 0 0 0 rgba(254, 60, 114, 0.7); transform: scale(1); }
+            50% { box-shadow: 0 0 0 10px rgba(254, 60, 114, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(254, 60, 114, 0); transform: scale(1); }
         }
 
         #live-notif { 
@@ -345,7 +307,6 @@
             transition: 0.6s; 
             width: 85%; 
             max-width: 320px;
-            /* Glassmorphism */
             backdrop-filter: blur(10px);
             background: rgba(255, 255, 255, 0.95);
         }
@@ -363,7 +324,6 @@
             background: #fff; 
             z-index: 5000; 
             overflow-y: auto;
-            /* Glassmorphism */
             backdrop-filter: blur(5px);
             background: rgba(255, 255, 255, 0.95);
         }
@@ -373,123 +333,32 @@
         .p-header { padding: 0 15px 15px 15px; margin-top: -50px; position: relative; z-index: 10; }
         
         .p-img-main { 
-            width: 90px; 
-            height: 90px; 
-            border-radius: 50%; 
-            border: 4px solid #fff; 
-            object-fit: cover; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            width: 90px; height: 90px; border-radius: 50%; border: 4px solid #fff; object-fit: cover; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             animation: imgPulse 2s ease-in-out infinite;
         }
 
-        @keyframes imgPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-        }
+        @keyframes imgPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
 
         .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 15px 10px; }
-        
-        .stat-box { 
-            background: #fff; 
-            border: 1px solid #ffd1dc; 
-            border-radius: 12px; 
-            padding: 6px; 
-            text-align: center;
-            /* Glassmorphism */
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.9);
-            transition: 0.3s;
-            cursor: pointer;
-        }
-
-        .stat-box:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(254, 60, 114, 0.1);
-        }
-
+        .stat-box { background: #fff; border: 1px solid #ffd1dc; border-radius: 12px; padding: 6px; text-align: center; backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.9); transition: 0.3s; cursor: pointer; }
+        .stat-box:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(254, 60, 114, 0.1); }
         .stat-val { display: block; font-weight: 800; font-size: 11px; color: #333; }
-        
-        .stat-of { 
-            background: #eaf8ff; 
-            border-color: #00aff0; 
-            color: #00aff0;
-            /* Glassmorphism */
-            backdrop-filter: blur(10px);
-            background: rgba(234, 248, 255, 0.9);
-        }
+        .stat-of { background: #eaf8ff; border-color: #00aff0; color: #00aff0; backdrop-filter: blur(10px); background: rgba(234, 248, 255, 0.9); }
         
         .social-grid { 
-            display: grid; 
-            grid-template-columns: repeat(5, 1fr); 
-            gap: 8px; 
-            margin: 15px; 
-            padding: 12px; 
-            background: rgba(253,249,250,0.9); 
-            border-radius: 20px; 
-            border: 1px solid #fff;
-            /* Glasmorphism */
-            backdrop-filter: blur(10px);
+            display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 15px; padding: 12px; background: rgba(253,249,250,0.9); border-radius: 20px; border: 1px solid #fff; backdrop-filter: blur(10px);
         }
 
         .soc-icon { 
-            position: relative; 
-            font-size: 20px; 
-            padding: 10px; 
-            background: #fff; 
-            border-radius: 12px; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            border: 1px solid #eee; 
-            cursor: pointer; 
-            transition: 0.3s;
-            /* Glasmorphism */
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.9);
+            position: relative; font-size: 20px; padding: 10px; background: #fff; border-radius: 12px; display: flex; justify-content: center; align-items: center; border: 1px solid #eee; cursor: pointer; transition: 0.3s; backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.9);
         }
 
-        .soc-icon:hover {
-            transform: scale(1.1) translateY(-3px);
-            box-shadow: 0 5px 15px rgba(254, 60, 114, 0.15);
-        }
-
+        .soc-icon:hover { transform: scale(1.1) translateY(-3px); box-shadow: 0 5px 15px rgba(254, 60, 114, 0.15); }
         .soc-lock { position: absolute; bottom: 3px; right: 3px; font-size: 8px; color: #ff0000; background: #fff; border-radius: 50%; padding: 1px; }
         
-        .captcha-area { 
-            background: #fff; 
-            border: 2px solid #ffd1dc; 
-            border-radius: 20px; 
-            padding: 20px; 
-            margin: 20px; 
-            transition: 0.3s; 
-            z-index: 10; 
-            position: relative;
-            /* Glasmorphism */
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.9);
-        }
-
-        .recaptcha-box { 
-            background: #f9f9f9; 
-            border: 1px solid #d3d3d3; 
-            height: 75px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            padding: 0 15px; 
-            cursor: pointer; 
-            border-radius: 6px;
-            transition: 0.3s;
-            /* Glasmorphism */
-            backdrop-filter: blur(10px);
-            background: rgba(249, 249, 249, 0.9);
-        }
-
-        .recaptcha-box:hover {
-            border-color: var(--primary);
-            box-shadow: 0 3px 10px rgba(254, 60, 114, 0.1);
-        }
-
+        .captcha-area { background: #fff; border: 2px solid #ffd1dc; border-radius: 20px; padding: 20px; margin: 20px; transition: 0.3s; z-index: 10; position: relative; backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.9); }
+        .recaptcha-box { background: #f9f9f9; border: 1px solid #d3d3d3; height: 75px; display: flex; align-items: center; justify-content: space-between; padding: 0 15px; cursor: pointer; border-radius: 6px; transition: 0.3s; backdrop-filter: blur(10px); background: rgba(249, 249, 249, 0.9); }
+        .recaptcha-box:hover { border-color: var(--primary); box-shadow: 0 3px 10px rgba(254, 60, 114, 0.1); }
         .checkbox { width: 24px; height: 24px; border: 2px solid #c1c1c1; background: #fff; border-radius: 3px; }
         .checkbox.loading { border-radius: 50%; border: 3px solid #f3f3f3; border-top: 3px solid var(--primary); animation: spin 1s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
@@ -497,46 +366,12 @@
         .shake-now { animation: shake-anim 0.4s ease-in-out; border-color: var(--primary) !important; box-shadow: 0 0 20px rgba(254,60,114,0.2) !important; }
         
         #offers-wrap { display: none; margin-top: 20px; text-align: left; }
-        
-        .offer-card { 
-            background: #fff; 
-            border: 1px solid #eee; 
-            border-radius: 15px; 
-            padding: 12px; 
-            margin-bottom: 12px; 
-            display: flex; 
-            align-items: center; 
-            text-decoration: none; 
-            color: #333; 
-            position: relative; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
-            transition: 0.3s;
-            /* Glasmorphism */
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.9);
-        }
-
-        .offer-card:hover {
-            transform: translateX(5px);
-            box-shadow: 0 8px 20px rgba(254, 60, 114, 0.1);
-        }
-
+        .offer-card { background: #fff; border: 1px solid #eee; border-radius: 15px; padding: 12px; margin-bottom: 12px; display: flex; align-items: center; text-decoration: none; color: #333; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.04); transition: 0.3s; backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.9); }
+        .offer-card:hover { transform: translateX(5px); box-shadow: 0 8px 20px rgba(254, 60, 114, 0.1); }
         .offer-step-tag { position: absolute; top: 0; right: 0; background: var(--primary); color: #fff; font-size: 8px; padding: 3px 10px; border-bottom-left-radius: 12px; font-weight: bold; }
         .offer-card img { width: 48px; height: 48px; border-radius: 10px; margin-right: 12px; object-fit: cover; background: #f9f9f9; border: 1px solid #eee; }
         
-        .vid-container { 
-            width: 92%; 
-            max-width: 280px; 
-            height: 400px; 
-            margin: 20px auto; 
-            border-radius: 25px; 
-            overflow: hidden; 
-            border: 5px solid #fff; 
-            background: #000;
-            /* Glasmorphism */
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-        }
-
+        .vid-container { width: 92%; max-width: 280px; height: 400px; margin: 20px auto; border-radius: 25px; overflow: hidden; border: 5px solid #fff; background: #000; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2); }
         .vid-container video { width: 100%; height: 100%; object-fit: cover; }
     </style>
 </head>
@@ -549,14 +384,11 @@
 </header>
 <div class="search-container"><input type="text" id="smartSearch" placeholder="Search profiles near you..." onkeyup="filterProfiles()"></div>
 <div id="main-grid" class="grid"></div>
-<div id="live-notif">
-    <div class="notif-dot"></div>
-    <div style="font-size: 11px; font-weight: bold; color: #444;"><span id="notif-name">Zoe</span> is online in <span class="loc-var" style="color:var(--primary)">Your Area</span></div>
-</div>
+<div id="live-notif"><div class="notif-dot"></div><div style="font-size: 11px; font-weight: bold; color: #444;"><span id="notif-name">Zoe</span> is online in <span class="loc-var" style="color:var(--primary)">Your Area</span></div></div>
 <div id="locker">
     <div id="lockerDecor" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1; opacity:0.3;"></div>
     <div class="locker-inner">
-        <div class="cover-area" id="p-cover"><i class="fas fa-chevron-left" onclick="closeLocker()" style="position:absolute; left:15px; top:15px; padding:12px; color:#fff; background:rgba(0,0,0,0.4); border-radius:50%; cursor:pointer; z-index:20; transition:0.2s;" onmouseover="this.style.background='rgba(0,0,0,0.6)'" onmouseout="this.style.background='rgba(0,0,0,0.4)'"></i></div>
+        <div class="cover-area" id="p-cover"><i class="fas fa-chevron-left" onclick="closeLocker()" style="position:absolute; left:15px; top:15px; padding:12px; color:#fff; background:rgba(0,0,0,0.4); border-radius:50%; cursor:pointer; z-index:20; transition:0.2s;"></i></div>
         <div class="p-header">
             <img id="p-img" src="" class="p-img-main">
             <h3 style="margin:8px 0 0 0; font-size:20px;"><span id="p-name"></span> <img src="verified.png" class="verified-badge" style="width:18px; vertical-align:middle;"></h3>
@@ -564,7 +396,7 @@
             <div class="stats-row">
                 <div class="stat-box" onclick="remindCaptcha()"><i class="fas fa-camera"></i><span class="stat-val" id="st-ph">0 Photos</span></div>
                 <div class="stat-box" onclick="remindCaptcha()"><i class="fas fa-video"></i><span class="stat-val" id="st-vi">0 Videos</span></div>
-                <div class="stat-box stat-of" onclick="remindCaptcha()"><img src="only.fans.png" style="width:18px; margin-bottom:2px;" onerror="this.src=getProxiedImageUrl('https://cdn-icons-png.flaticon.com/512/174/174855.png')"><span style="font-size:7px; font-weight:900; color:#00aff0; display:block;">FREE ACCESS</span></div>
+                <div class="stat-box stat-of" onclick="remindCaptcha()"><span style="font-size:7px; font-weight:900; color:#00aff0; display:block;">FREE ACCESS</span></div>
             </div>
             <div class="social-grid">
                 <div class="soc-icon" onclick="remindCaptcha()"><i class="fab fa-whatsapp" style="color:#25D366;"></i><i class="fas fa-lock soc-lock"></i></div>
@@ -586,58 +418,31 @@
 </div>
 
 <script>
-    // ============================================
-    // COPYRIGHT PROTECTION & INTERACTION SECURITY
-    // ============================================
-    document.addEventListener('contextmenu', function(e) { e.preventDefault(); return false; });
-    document.addEventListener('copy', function(e) { e.preventDefault(); return false; });
-    document.addEventListener('cut', function(e) { e.preventDefault(); return false; });
-    document.addEventListener('selectstart', function(e) { e.preventDefault(); return false; });
-    document.addEventListener('keydown', function(e) { if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C'))) { e.preventDefault(); return false; } });
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('copy', e => e.preventDefault());
+    document.addEventListener('keydown', e => { if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C'))) e.preventDefault(); });
 
-    // ============================================
-    // CORE APPLICATION LOGIC
-    // ============================================
-    let userCity = "Your Area";
-    let countryName = "Your Country";
-    let currentLocationData = {}; 
-    let currentProfileLocation = null; 
+    let userCity = "Your Area"; let countryName = "Your Country"; let currentProfileLocation = null;
+    const intlPool = [{city: "London", country: "United Kingdom"}, {city: "Paris", country: "France"}, {city: "Berlin", country: "Germany"}];
+    const realBios = ["Looking for someone tonight. ❤️", "Serious connection only.", "Active now, let's chat. 🔥"];
 
-    const intlPool = [
-        {city: "London", country: "United Kingdom"}, {city: "Paris", country: "France"}, 
-        {city: "Berlin", country: "Germany"}, {city: "Sydney", country: "Australia"},
-        {city: "Toronto", country: "Canada"}, {city: "Madrid", country: "Spain"}
-    ];
-
-    const realBios = [
-        "Looking for someone tonight. ❤️", "Serious connection only.", 
-        "Active now, let's chat. 🔥", "Unlock my private gallery.", 
-        "Join me on my private channel.", "New photos uploaded today!", 
-        "I am closer than you think.", "Exclusive content inside 🔒"
-    ];
-
-    // ============================================
-    // IMAGE PROXY FUNCTION (UPDATED TO weserv.nl)
-    // ============================================
+    // الحل النهائي: استخدام بروكسي Google الأضمن لمتصفح Brave
     function getProxiedImageUrl(originalUrl) {
         if (!originalUrl) return 'https://cdn-icons-png.flaticon.com/512/1162/1162933.png';
-        if (originalUrl.startsWith('//')) originalUrl = 'https:' + originalUrl;
-        return `https://images.weserv.nl/?url=${encodeURIComponent(originalUrl)}`;
+        let cleanUrl = originalUrl.startsWith('//') ? 'https:' + originalUrl : originalUrl;
+        return `https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=2592000&url=${encodeURIComponent(cleanUrl)}`;
     }
 
-    function triggerHapticFeedback() { if (navigator.vibrate) { navigator.vibrate(10); } }
+    function triggerHapticFeedback() { if (navigator.vibrate) navigator.vibrate(10); }
 
     function fetchLocation() {
         $.ajax({
-            url: "https://ipapi.co/jsonp/",
-            dataType: "jsonp",
+            url: "https://ipapi.co/jsonp/", dataType: "jsonp",
             success: function(data) {
                 if(data && data.city) {
                     userCity = data.city; countryName = data.country_name;
-                    currentLocationData = {city: userCity, country: countryName};
                     $(".loc-var").text(userCity + ", " + countryName);
-                    updateAllLocations();
-                    setTimeout(showLiveNotif, 4000);
+                    updateAllLocations(); setTimeout(showLiveNotif, 4000);
                 }
             },
             error: function() { renderGrid(); }
@@ -647,126 +452,73 @@
     function updateAllLocations() {
         $(".card").each(function(idx) {
             let locEl = $(this).find(".loc-text");
-            let btnEl = $(this).find(".btn-connect");
             if(locEl.text().includes("Your Area")) {
-                let finalLoc;
-                if(idx % 3 === 0) {
-                    finalLoc = userCity + ", " + countryName;
-                    $(this).data("cardLocation", {city: userCity, country: countryName, display: finalLoc});
-                } else {
-                    let intlData = intlPool[idx % intlPool.length];
-                    finalLoc = intlData.city + ", " + intlData.country;
-                    $(this).data("cardLocation", {city: intlData.city, country: intlData.country, display: finalLoc});
-                }
+                let finalLoc = (idx % 3 === 0) ? userCity + ", " + countryName : intlPool[idx % intlPool.length].city + ", " + intlPool[idx % intlPool.length].country;
                 locEl.html('<i class="fas fa-map-marker-alt"></i> ' + finalLoc);
-                btnEl.attr('data-location', finalLoc);
+                $(this).find(".btn-connect").attr('data-location', finalLoc);
             }
         });
     }
 
-    function createSkeletonCard() {
-        return `<div class="card-skeleton"><div class="skeleton-thumb"></div><div class="skeleton-info"><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line" style="height: 30px; margin-top: auto;"></div></div></div>`;
-    }
-
-    function showSkeletonLoading() {
-        let skeletons = '';
-        for(let i = 0; i < 6; i++) { skeletons += createSkeletonCard(); }
-        document.getElementById('main-grid').innerHTML = skeletons;
-    }
-
-    function shuffleArray(array) {
-        const shuffled = [...array];
-        for (let i = shuffled.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; }
-        return shuffled;
-    }
-
+    function createSkeletonCard() { return `<div class="card-skeleton"><div class="skeleton-thumb"></div><div class="skeleton-info"><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line" style="height: 30px; margin-top: auto;"></div></div></div>`; }
+    function showSkeletonLoading() { let skeletons = ''; for(let i = 0; i < 6; i++) skeletons += createSkeletonCard(); document.getElementById('main-grid').innerHTML = skeletons; }
+    function shuffleArray(array) { const shuffled = [...array]; for (let i = shuffled.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; } return shuffled; }
     function toggleMenu() { $('#mainMenu').fadeToggle(200); }
 
-    const names = ["Maddie", "Sienna", "Chloe", "Amber", "Tiffany", "Elena", "Sophie", "Isabella", "Ava", "Mia", "Zoe", "Layla"];
-
-    function showLiveNotif() {
-        $("#notif-name").text(names[Math.floor(Math.random()*names.length)]);
-        $(".loc-var").text(userCity + ", " + countryName);
-        $("#live-notif").css("bottom", "20px");
-        setTimeout(() => { $("#live-notif").css("bottom", "-100px"); setTimeout(showLiveNotif, 12000); }, 5000);
-    }
+    const names = ["Maddie", "Sienna", "Chloe", "Amber", "Tiffany", "Elena"];
+    function showLiveNotif() { $("#notif-name").text(names[Math.floor(Math.random()*names.length)]); $(".loc-var").text(userCity + ", " + countryName); $("#live-notif").css("bottom", "20px"); setTimeout(() => { $("#live-notif").css("bottom", "-100px"); setTimeout(showLiveNotif, 12000); }, 5000); }
 
     function createCard(type, i) {
         let name = names[i % names.length] + " " + String.fromCharCode(65 + (i % 26)) + ".";
-        let age = (type === 'young') ? Math.floor(Math.random()*11)+24 : (type === 'moms') ? Math.floor(Math.random()*11)+35 : Math.floor(Math.random()*11)+46;
-        let locationDisplay = "Your Area";
-        return `<div class="card" data-info="${name.toLowerCase()}" data-type="${type}" data-index="${i}" onclick="handleCardClick(this)">
+        let age = (type === 'young') ? Math.floor(Math.random()*11)+24 : Math.floor(Math.random()*11)+35;
+        return `<div class="card" onclick="handleCardClick(this)">
             <img src="${type}_${i}.jpg" class="main-thumb" loading="lazy" onerror="this.parentElement.style.display='none'">
             <div class="info">
                 <div class="name-age">${name}, ${age}</div>
-                <div class="loc-text"><i class="fas fa-map-marker-alt"></i> ${locationDisplay}</div>
+                <div class="loc-text"><i class="fas fa-map-marker-alt"></i> Your Area</div>
                 <span class="girl-msg">"${realBios[i % realBios.length]}"</span>
-                <div style="margin-top:5px;"><span class="social-item">🔒 WhatsApp</span><span class="social-item">🔒 Snapchat</span></div>
-                <button class="btn-connect" onclick="handleConnectClick(event, this)" data-name="${name}" data-img="${type}_${i}.jpg" data-location="${locationDisplay}">Connect Now</button>
+                <button class="btn-connect" onclick="handleConnectClick(event, this)" data-name="${name}" data-img="${type}_${i}.jpg" data-location="Your Area">Connect Now</button>
             </div>
         </div>`;
     }
 
-    function handleCardClick(cardElement) { cardElement.classList.add('scale-click'); setTimeout(() => cardElement.classList.remove('scale-click'), 400); }
+    function handleCardClick(el) { el.classList.add('scale-click'); setTimeout(() => el.classList.remove('scale-click'), 400); }
 
     function renderGrid() {
         showSkeletonLoading();
         setTimeout(() => {
-            let cards = [];
-            for (let i = 1; i <= 60; i++) { cards.push(createCard('young', i)); cards.push(createCard('moms', i)); cards.push(createCard('granny', i)); }
-            cards = shuffleArray(cards);
-            document.getElementById('main-grid').innerHTML = cards.join('');
-            fetchLocation();
+            let cards = []; for (let i = 1; i <= 60; i++) { cards.push(createCard('young', i)); cards.push(createCard('moms', i)); }
+            cards = shuffleArray(cards); document.getElementById('main-grid').innerHTML = cards.join(''); fetchLocation();
         }, 1000);
     }
 
     renderGrid();
 
-    function openLocker(name, img, location) {
-        currentProfileLocation = location;
-        document.getElementById('p-name').innerText = name;
-        document.getElementById('p-img').src = img;
+    function openLocker(name, img, loc) {
+        currentProfileLocation = loc; document.getElementById('p-name').innerText = name; document.getElementById('p-img').src = img;
         document.getElementById('st-ph').innerText = (Math.floor(Math.random() * 50) + 20) + " Photos";
-        document.getElementById('st-vi').innerText = (Math.floor(Math.random() * 5) + 2) + " Videos";
         document.getElementById('p-cover').style.backgroundImage = `url('cover_${Math.floor(Math.random()*23)+1}.jpg')`;
-        document.getElementById('locker').style.display = 'block';
-        spawnLockerDecor();
-        const vid = document.getElementById('tutorialVideo');
-        vid.muted = false; vid.play().catch(() => { vid.muted = true; vid.play(); });
+        document.getElementById('locker').style.display = 'block'; spawnLockerDecor();
+        const vid = document.getElementById('tutorialVideo'); vid.muted = false; vid.play().catch(() => { vid.muted = true; vid.play(); });
         setTimeout(() => { document.getElementById('sync-text').innerHTML = `<span style="color:#28a745;font-weight:bold;"><i class="fas fa-circle" style="font-size:7px;animation:pulse 1.5s infinite"></i> Active Now in ${currentProfileLocation}</span>`; }, 1000);
     }
 
-    function handleConnectClick(event, buttonElement) {
-        event.stopPropagation(); triggerHapticFeedback();
-        buttonElement.classList.add('pulse'); setTimeout(() => buttonElement.classList.remove('pulse'), 600);
-        openLocker(buttonElement.getAttribute('data-name'), buttonElement.getAttribute('data-img'), buttonElement.getAttribute('data-location'));
-    }
-
-    function triggerCaptcha() {
-        const box = document.getElementById('captcha-box');
-        if(box.classList.contains('loading')) return;
-        box.classList.add('loading'); triggerHapticFeedback();
-        setTimeout(() => { document.getElementById('offers-wrap').style.display = 'block'; fetchOffers(); }, 1200);
-    }
+    function handleConnectClick(e, btn) { e.stopPropagation(); triggerHapticFeedback(); btn.classList.add('pulse'); setTimeout(() => btn.classList.remove('pulse'), 600); openLocker(btn.getAttribute('data-name'), btn.getAttribute('data-img'), btn.getAttribute('data-location')); }
+    function triggerCaptcha() { const box = document.getElementById('captcha-box'); if(box.classList.contains('loading')) return; box.classList.add('loading'); triggerHapticFeedback(); setTimeout(() => { document.getElementById('offers-wrap').style.display = 'block'; fetchOffers(); }, 1200); }
 
     function fetchOffers() {
         const feedUrl = "https://d5b3uz3fo8hn3.cloudfront.net/public/offers/feed.php?user_id=570304&api_key=0da06ad8edf91a87f3387591d987d7bb&callback=?";
         $.getJSON(feedUrl, function(offers) {
-            let html = '';
-            const englishOffers = offers.filter(o => !/[\u0600-\u06FF]/.test(o.title)).slice(0, 4);
-            englishOffers.forEach((offer, index) => {
+            let html = ''; const englishOffers = offers.filter(o => !/[\u0600-\u06FF]/.test(o.title)).slice(0, 4);
+            englishOffers.forEach((offer, idx) => {
                 let icon = getProxiedImageUrl(offer.icon);
-                html += `<a href="${offer.url}" target="_blank" class="offer-card">
-                    <div class="offer-step-tag">STEP ${index+1}</div>
-                    <img src="${icon}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1162/1162933.png'">
-                    <div><div style="font-size:13px; font-weight:800; color:#222;">${offer.anchor || offer.title}</div><div style="font-size:10px; color:var(--primary); font-weight:bold; margin-top:3px;">[COMPLETE TO UNLOCK]</div></div>
-                </a>`;
+                html += `<a href="${offer.url}" target="_blank" class="offer-card"><div class="offer-step-tag">STEP ${idx+1}</div><img src="${icon}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1162/1162933.png'"><div><div style="font-size:13px; font-weight:800; color:#222;">${offer.anchor || offer.title}</div><div style="font-size:10px; color:var(--primary); font-weight:bold; margin-top:3px;">[COMPLETE TO UNLOCK]</div></div></a>`;
             });
             $("#offers-list").html(html || "<p style='text-align:center; font-size:11px;'>Checking secure tasks...</p>");
         });
     }
 
-    function remindCaptcha() { const area = $('#captcha-area'); area.addClass('shake-now'); setTimeout(() => area.removeClass('shake-now'), 400); triggerHapticFeedback(); }
+    function remindCaptcha() { $('#captcha-area').addClass('shake-now'); setTimeout(() => $('#captcha-area').removeClass('shake-now'), 400); triggerHapticFeedback(); }
     function filterProfiles() { let input = $('#smartSearch').val().toLowerCase(); $('.card').each(function() { $(this).toggle($(this).text().toLowerCase().includes(input)); }); }
     function closeLocker() { $('#locker').hide(); document.getElementById('tutorialVideo').pause(); currentProfileLocation = null; }
 
@@ -778,7 +530,6 @@
             decor.appendChild(el);
         }
     }
-
     const style = document.createElement('style'); style.textContent = `@keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }`; document.head.appendChild(style);
 </script>
 </body>
