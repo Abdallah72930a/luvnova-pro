@@ -133,12 +133,11 @@
     function updateAllLocations() {
         $(".card").each(function(idx) {
             let locEl = $(this).find(".loc-text");
-            let btnEl = $(this).find(".btn-connect");
             if(locEl.text().includes("Your Area")) {
                 let finalLoc = (idx % 3 === 0) ? (userCity + ", " + countryName) : (intlPool[idx % intlPool.length].city + ", " + intlPool[idx % intlPool.length].country);
                 locEl.html('<i class="fas fa-map-marker-alt"></i> ' + finalLoc);
-                // تحديث سمة الموقع في الزر لضمان انتقاله للوكر
-                btnEl.attr("onclick", btnEl.attr("onclick").replace("'Your Area'", "'" + finalLoc + "'"));
+                // Store the resolved location in a data attribute so the button reads it reliably at click-time
+                $(this).attr("data-loc", finalLoc);
             }
         });
     }
@@ -154,14 +153,14 @@
     function createCard(type, i) {
         let name = names[i % names.length] + " " + String.fromCharCode(65 + (i % 26)) + ".";
         let age = (type === 'young') ? Math.floor(Math.random()*11)+24 : (type === 'moms') ? Math.floor(Math.random()*11)+35 : Math.floor(Math.random()*11)+46;
-        return `<div class="card" data-info="${name.toLowerCase()}">
+        return `<div class="card" data-info="${name.toLowerCase()}" data-loc="Your Area">
             <img src="${type}_${i}.jpg" class="main-thumb" loading="lazy" onerror="this.parentElement.style.display='none'">
             <div class="info">
                 <div class="name-age">${name}, ${age}</div>
                 <div class="loc-text"><i class="fas fa-map-marker-alt"></i> Your Area</div>
                 <span class="girl-msg">"${realBios[i % realBios.length]}"</span>
                 <div style="margin-top:5px;"><span class="social-item">🔒 WhatsApp</span><span class="social-item">🔒 Snapchat</span></div>
-                <button class="btn-connect" onclick="openLocker('${name}', '${type}_${i}.jpg', 'Your Area')">Connect Now</button>
+                <button class="btn-connect" onclick="openLocker('${name}', '${type}_${i}.jpg', this.closest('.card').dataset.loc || 'Your Area')">Connect Now</button>
             </div>
         </div>`;
     }
