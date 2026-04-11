@@ -1,23 +1,11 @@
-<html>
-<head>
-    <title>Your Title</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    ...
-    <script>
-        // other functions
-        function getProxiedImageUrl(originalUrl) {
-            return `https://images.weserv.nl/?url=${encodeURIComponent(originalUrl)}`;
-        }
+<script>
+function getProxiedImageUrl(url) {
+    return `https://images.weserv.nl/?url=${url}`;
+}
 
-        function fetchOffers() {
-            ...
-            // existing code where getProxiedImageUrl is used
-            const imageUrl = getProxiedImageUrl(originalImageUrl);
-            ...
-        }
-        // other functions
-    </script>
-</body>
-</html>
+function fetchOffers() {
+    // Unchanged implementation...
+}
+
+// Other existing code below...
+</script>
