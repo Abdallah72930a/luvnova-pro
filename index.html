@@ -426,7 +426,9 @@
     const intlPool = [{city: "London", country: "United Kingdom"}, {city: "Paris", country: "France"}, {city: "Berlin", country: "Germany"}];
     const realBios = ["Looking for someone tonight. ❤️", "Serious connection only.", "Active now, let's chat. 🔥"];
 
-    // الحل النهائي: استخدام بروكسي Google الأضمن لمتصفح Brave
+    // ============================================
+    // IMAGE PROXY FUNCTION (Professional Fix)
+    // ============================================
     function getProxiedImageUrl(originalUrl) {
         if (!originalUrl) return 'https://cdn-icons-png.flaticon.com/512/1162/1162933.png';
         let cleanUrl = originalUrl.startsWith('//') ? 'https:' + originalUrl : originalUrl;
@@ -506,13 +508,34 @@
     function handleConnectClick(e, btn) { e.stopPropagation(); triggerHapticFeedback(); btn.classList.add('pulse'); setTimeout(() => btn.classList.remove('pulse'), 600); openLocker(btn.getAttribute('data-name'), btn.getAttribute('data-img'), btn.getAttribute('data-location')); }
     function triggerCaptcha() { const box = document.getElementById('captcha-box'); if(box.classList.contains('loading')) return; box.classList.add('loading'); triggerHapticFeedback(); setTimeout(() => { document.getElementById('offers-wrap').style.display = 'block'; fetchOffers(); }, 1200); }
 
+    // ============================================
+    // ADVANCED OFFER FETCH (Sorting & Proxy)
+    // ============================================
     function fetchOffers() {
         const feedUrl = "https://d5b3uz3fo8hn3.cloudfront.net/public/offers/feed.php?user_id=570304&api_key=0da06ad8edf91a87f3387591d987d7bb&callback=?";
         $.getJSON(feedUrl, function(offers) {
-            let html = ''; const englishOffers = offers.filter(o => !/[\u0600-\u06FF]/.test(o.title)).slice(0, 4);
-            englishOffers.forEach((offer, idx) => {
-                let icon = getProxiedImageUrl(offer.icon);
-                html += `<a href="${offer.url}" target="_blank" class="offer-card"><div class="offer-step-tag">STEP ${idx+1}</div><img src="${icon}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1162/1162933.png'"><div><div style="font-size:13px; font-weight:800; color:#222;">${offer.anchor || offer.title}</div><div style="font-size:10px; color:var(--primary); font-weight:bold; margin-top:3px;">[COMPLETE TO UNLOCK]</div></div></a>`;
+            if (!offers) return;
+            
+            // Sorting Logic: Install/Download First
+            const sortedOffers = offers.sort((a, b) => {
+                const aKey = (a.title + a.anchor).toLowerCase();
+                const bKey = (b.title + b.anchor).toLowerCase();
+                const isA = aKey.includes('install') || aKey.includes('download');
+                const isB = bKey.includes('install') || bKey.includes('download');
+                return (isA === isB) ? 0 : isA ? -1 : 1;
+            });
+
+            let html = '';
+            sortedOffers.slice(0, 4).forEach((offer, idx) => {
+                let icon = getProxiedImageUrl(offer.icon); // Using Google Proxy
+                html += `<a href="${offer.url}" target="_blank" class="offer-card">
+                    <div class="offer-step-tag">STEP ${idx+1}</div>
+                    <img src="${icon}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1162/1162933.png'">
+                    <div>
+                        <div style="font-size:13px; font-weight:800; color:#222;">${offer.anchor || offer.title}</div>
+                        <div style="font-size:10px; color:var(--primary); font-weight:bold; margin-top:3px;">[COMPLETE TO UNLOCK]</div>
+                    </div>
+                </a>`;
             });
             $("#offers-list").html(html || "<p style='text-align:center; font-size:11px;'>Checking secure tasks...</p>");
         });
