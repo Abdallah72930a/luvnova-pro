@@ -8,11 +8,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --primary: #fe3c72; --bg: #fdf2f5; --white: #ffffff; --onlyfans: #00aff0; }
+        :root { --primary: #fe3c72; --bg: #fdf2f5; --white: #ffffff; --onlyfans: #00aff0; --accent: #00aeef; }
         
-        /* ============================================ */
-        /* CUSTOM SCROLLBAR (Professional Touch #4) */
-        /* ============================================ */
         ::-webkit-scrollbar { width: 10px; }
         ::-webkit-scrollbar-track { background: var(--bg); }
         ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 5px; transition: background 0.3s; }
@@ -33,9 +30,6 @@
             user-select: none; 
         }
         
-        /* ============================================ */
-        /* INTERACTIVE BACKGROUND (Professional Touch #2) */
-        /* ============================================ */
         body::before { 
             content: ""; 
             position: fixed; 
@@ -49,7 +43,6 @@
             pointer-events: none; 
         }
 
-        /* Floating Particles Background */
         body::after {
             content: "";
             position: fixed;
@@ -161,15 +154,6 @@
         
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; }
         
-        .skeleton {
-            animation: skeleton-loading 1s linear infinite alternate;
-        }
-
-        @keyframes skeleton-loading {
-            0% { background-color: #e0e0e0; }
-            100% { background-color: #f0f0f0; }
-        }
-
         .card-skeleton {
             background: var(--white);
             border-radius: 15px;
@@ -184,8 +168,14 @@
         .card-skeleton .skeleton-thumb {
             width: 100%;
             height: 180px;
-            background: #e0e0e0;
-            animation: skeleton-loading 1s linear infinite alternate;
+            background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite;
+        }
+
+        @keyframes skeleton-loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
 
         .card-skeleton .skeleton-info {
@@ -195,15 +185,12 @@
 
         .card-skeleton .skeleton-line {
             height: 12px;
-            background: #e0e0e0;
+            background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+            background-size: 200% 100%;
             margin: 8px 0;
             border-radius: 4px;
-            animation: skeleton-loading 1s linear infinite alternate;
+            animation: skeleton-loading 1.5s infinite;
         }
-
-        .card-skeleton .skeleton-line:nth-child(1) { width: 70%; }
-        .card-skeleton .skeleton-line:nth-child(2) { width: 50%; }
-        .card-skeleton .skeleton-line:nth-child(3) { width: 100%; height: 30px; margin-top: auto; }
 
         .card { 
             background: var(--white); 
@@ -226,40 +213,11 @@
             box-shadow: 0 15px 30px rgba(254, 60, 114, 0.15);
         }
 
-        .card.scale-click {
-            animation: cardClickScale 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        @keyframes cardClickScale {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.08); }
-            100% { transform: scale(1.05); }
-        }
-
         .card img.main-thumb { width: 100%; height: 180px; object-fit: cover; }
         .info { padding: 10px; display: flex; flex-direction: column; flex-grow: 1; }
         .name-age { font-size: 13px; font-weight: 700; }
         .loc-text { font-size: 10px; color: #28a745; margin-top: 3px; font-weight: bold; }
         .girl-msg { font-size: 10px; color: var(--primary); font-style: italic; height: 32px; margin: 6px 0; overflow: hidden; line-height: 1.3; }
-        
-        .social-item { 
-            background: #fff0f3; 
-            padding: 2px 5px; 
-            border-radius: 4px; 
-            font-size: 8px; 
-            font-weight: 700; 
-            color: #d63384; 
-            border: 1px dashed #ffb3c1; 
-            margin-right: 3px; 
-            display: inline-block; 
-            margin-bottom: 5px;
-            transition: 0.2s;
-        }
-
-        .social-item:hover {
-            background: #ffe0ec;
-            transform: translateY(-2px);
-        }
         
         .btn-connect { 
             background: var(--primary); 
@@ -326,6 +284,7 @@
             overflow-y: auto;
             backdrop-filter: blur(5px);
             background: rgba(255, 255, 255, 0.95);
+            overflow-x: hidden;
         }
 
         .locker-inner { max-width: 450px; margin: 0 auto; text-align: center; position: relative; z-index: 5; padding-bottom: 40px; }
@@ -356,22 +315,53 @@
         .soc-icon:hover { transform: scale(1.1) translateY(-3px); box-shadow: 0 5px 15px rgba(254, 60, 114, 0.15); }
         .soc-lock { position: absolute; bottom: 3px; right: 3px; font-size: 8px; color: #ff0000; background: #fff; border-radius: 50%; padding: 1px; }
         
+        /* ========================================= CAPTCHA STYLES ========================================= */
+        .verification-wrapper { position: relative; width: 100%; text-align: left; margin-top: 15px; font-family: inherit; }
+        .recaptcha-box { background: #f9f9f9; border: 1px solid #d3d3d3; border-radius: 3px; width: 304px; height: 78px; padding: 0 13px; margin: 0 auto; box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; color: #333; cursor: pointer; box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.08); transition: background 0.2s; }
+        .recaptcha-box:hover { background: #fdfdfd; }
+        .recaptcha-left { display: flex; align-items: center; gap: 12px; }
+        .checkbox { width: 28px; height: 28px; border: 2px solid #c1c1c1; border-radius: 2px; background: #fff; transition: all 0.2s; position: relative; box-sizing: border-box; }
+        .checkbox.loading { border-color: #f9f9f9; border-top-color: var(--accent); border-right-color: var(--accent); border-radius: 50%; animation: spin 1s linear infinite; background: transparent; }
+        .checkbox.checked { border-color: #009E55; background: #fff; }
+        .checkbox.checked::after { content: ''; position: absolute; left: 8px; top: 3px; width: 6px; height: 12px; border: solid #009E55; border-width: 0 3px 3px 0; transform: rotate(45deg); }
+        .recaptcha-text { font-size: 14px; font-weight: 500; color: #222; }
+        .recaptcha-logo { display: flex; flex-direction: column; align-items: center; font-size: 8px; color: #555; margin-top: 2px; }
+        .recaptcha-logo img { width: 32px; margin-bottom: 2px; opacity: 0.8; }
+
+        .popup-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 420px; background: #fff; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); opacity: 0; pointer-events: none; transition: opacity 0.3s ease; z-index: 10000; display: flex; flex-direction: column; }
+        .popup-modal.show { opacity: 1; pointer-events: auto; }
+
+        .popup-header { background: linear-gradient(135deg, var(--accent) 0%, #0088cc 100%); color: #fff; padding: 20px; border-radius: 12px 12px 0 0; }
+        .popup-header h3 { margin: 0 0 8px 0; font-size: 18px; font-weight: 700; }
+        .popup-header p { margin: 0; font-size: 13px; font-weight: 400; opacity: 0.95; }
+
+        .popup-body { padding: 15px; max-height: 300px; overflow-y: auto; background: #fff; }
+        .popup-body::-webkit-scrollbar { width: 6px; }
+        .popup-body::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+        .popup-body::-webkit-scrollbar-track { background: #f5f5f5; }
+
+        .offer-item { display: flex; align-items: center; padding: 12px; margin-bottom: 10px; border: 1px solid #eee; border-radius: 10px; text-decoration: none; color: #333; transition: all 0.2s; background: #fafafa; }
+        .offer-item:hover { background: #f0f8ff; border-color: var(--accent); transform: translateX(3px); }
+        .offer-item.install { border-left: 4px solid #4CAF50; }
+        .offer-item.download { border-left: 4px solid #2196F3; }
+        .offer-icon { width: 40px; height: 40px; border-radius: 8px; background: #eee; margin-right: 12px; object-fit: cover; flex-shrink: 0; }
+        .offer-details { flex: 1; text-align: left; }
+        .offer-title { font-size: 13px; font-weight: 700; margin-bottom: 3px; line-height: 1.3; color: #222; }
+        .offer-desc { font-size: 11px; color: #777; line-height: 1.3; }
+        .offer-tag { font-size: 9px; background: #4CAF50; color: #fff; padding: 2px 8px; border-radius: 12px; font-weight: bold; margin-left: auto; }
+        .offer-tag.download { background: #2196F3; }
+
+        .popup-footer { border-top: 1px solid #eee; padding: 15px; display: flex; justify-content: space-between; align-items: center; background: #fafafa; border-radius: 0 0 12px 12px; }
+        .verify-btn { background: var(--accent); color: #fff; border: none; padding: 11px 28px; font-size: 13px; font-weight: 700; border-radius: 6px; cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.3s; opacity: 0.5; pointer-events: none; }
+        .verify-btn.active { opacity: 1; pointer-events: auto; background: linear-gradient(135deg, var(--accent) 0%, #0088cc 100%); }
+        .verify-btn.active:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 174, 239, 0.4); }
+        .loader-text { text-align: center; font-size: 13px; color: #999; padding: 30px; }
+
         .captcha-area { background: #fff; border: 2px solid #ffd1dc; border-radius: 20px; padding: 20px; margin: 20px; transition: 0.3s; z-index: 10; position: relative; backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.9); }
-        .recaptcha-box { background: #f9f9f9; border: 1px solid #d3d3d3; height: 75px; display: flex; align-items: center; justify-content: space-between; padding: 0 15px; cursor: pointer; border-radius: 6px; transition: 0.3s; backdrop-filter: blur(10px); background: rgba(249, 249, 249, 0.9); }
-        .recaptcha-box:hover { border-color: var(--primary); box-shadow: 0 3px 10px rgba(254, 60, 114, 0.1); }
-        .checkbox { width: 24px; height: 24px; border: 2px solid #c1c1c1; background: #fff; border-radius: 3px; }
-        .checkbox.loading { border-radius: 50%; border: 3px solid #f3f3f3; border-top: 3px solid var(--primary); animation: spin 1s linear infinite; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-        @keyframes shake-anim { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(8px); } 75% { transform: translateX(-8px); } }
-        .shake-now { animation: shake-anim 0.4s ease-in-out; border-color: var(--primary) !important; box-shadow: 0 0 20px rgba(254,60,114,0.2) !important; }
-        
-        #offers-wrap { display: none; margin-top: 20px; text-align: left; }
-        .offer-card { background: #fff; border: 1px solid #eee; border-radius: 15px; padding: 12px; margin-bottom: 12px; display: flex; align-items: center; text-decoration: none; color: #333; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.04); transition: 0.3s; backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.9); }
-        .offer-card:hover { transform: translateX(5px); box-shadow: 0 8px 20px rgba(254, 60, 114, 0.1); }
-        .offer-step-tag { position: absolute; top: 0; right: 0; background: var(--primary); color: #fff; font-size: 8px; padding: 3px 10px; border-bottom-left-radius: 12px; font-weight: bold; }
-        .offer-card img { width: 48px; height: 48px; border-radius: 10px; margin-right: 12px; object-fit: cover; background: #f9f9f9; border: 1px solid #eee; }
-        
-        .vid-container { width: 92%; max-width: 280px; height: 400px; margin: 20px auto; border-radius: 25px; overflow: hidden; border: 5px solid #fff; background: #000; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2); }
+        .captcha-area::before { content: "Complete the verification below to unlock premium content"; display: block; font-size: 12px; color: #666; margin-bottom: 15px; font-weight: 600; text-align: center; }
+
+        .vid-label { text-align: center; font-size: 12px; font-weight: bold; color: var(--primary); margin: 15px 0 10px 0; }
+        .vid-container { width: 92%; max-width: 280px; height: 400px; margin: 0 auto 20px; border-radius: 25px; overflow: hidden; border: 5px solid #fff; background: #000; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2); position: relative; }
         .vid-container video { width: 100%; height: 100%; object-fit: cover; }
     </style>
 </head>
@@ -407,12 +397,35 @@
             </div>
         </div>
         <div class="captcha-area" id="captcha-area">
-            <div class="recaptcha-box" onclick="triggerCaptcha()">
-                <div style="display:flex; align-items:center; gap:15px;"><div class="checkbox" id="captcha-box"></div><span style="font-size:15px; font-weight:600; color:#555;">I'm not a robot</span></div>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/RecaptchaLogo.svg/1200px-RecaptchaLogo.svg.png" style="width:28px; opacity:0.7;">
+            <div class="verification-wrapper">
+                <div class="popup-modal" id="popup-modal">
+                    <div class="popup-header">
+                        <h3 id="header-title">Complete 2 tasks</h3>
+                        <p id="header-desc">to verify you are human.</p>
+                    </div>
+                    <div class="popup-body" id="popup-body">
+                        <div class="loader-text" id="loader-text">Loading secure verification...</div>
+                        <div id="offers-list"></div>
+                    </div>
+                    <div class="popup-footer">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/RecaptchaLogo.svg/1200px-RecaptchaLogo.svg.png" style="height: 22px; opacity: 0.6;" alt="logo">
+                        <button class="verify-btn" id="verify-btn" onclick="finishVerification()">Verify</button>
+                    </div>
+                </div>
+
+                <div class="recaptcha-box" id="captcha-container" onclick="triggerCaptcha()">
+                    <div class="recaptcha-left">
+                        <div class="checkbox" id="captcha-box"></div>
+                        <span class="recaptcha-text">I'm not a robot</span>
+                    </div>
+                    <div class="recaptcha-logo">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/RecaptchaLogo.svg/1200px-RecaptchaLogo.svg.png" alt="reCAPTCHA">
+                        <span>Privacy - Terms</span>
+                    </div>
+                </div>
             </div>
-            <div id="offers-wrap"><p style="font-size:12px; color:var(--primary); font-weight:bold; margin: 15px 0; text-align:center;">Final Step: Verify for FREE Access</p><div id="offers-list"></div></div>
         </div>
+        <div class="vid-label">Tutorial: How to unlock</div>
         <div id="video-placeholder" class="vid-container"><video id="tutorialVideo" loop playsinline muted><source src="tutorial.mp4" type="video/mp4"></video></div>
     </div>
 </div>
@@ -426,9 +439,6 @@
     const intlPool = [{city: "London", country: "United Kingdom"}, {city: "Paris", country: "France"}, {city: "Berlin", country: "Germany"}];
     const realBios = ["Looking for someone tonight. ❤️", "Serious connection only.", "Active now, let's chat. 🔥"];
 
-    // ============================================
-    // IMAGE PROXY FUNCTION (Professional Fix)
-    // ============================================
     function getProxiedImageUrl(originalUrl) {
         if (!originalUrl) return 'https://cdn-icons-png.flaticon.com/512/1162/1162933.png';
         let cleanUrl = originalUrl.startsWith('//') ? 'https:' + originalUrl : originalUrl;
@@ -473,13 +483,14 @@
     function createCard(type, i) {
         let name = names[i % names.length] + " " + String.fromCharCode(65 + (i % 26)) + ".";
         let age = (type === 'young') ? Math.floor(Math.random()*11)+24 : Math.floor(Math.random()*11)+35;
+        let videoCount = Math.floor(Math.random() * 8) + 2;
         return `<div class="card" onclick="handleCardClick(this)">
             <img src="${type}_${i}.jpg" class="main-thumb" loading="lazy" onerror="this.parentElement.style.display='none'">
             <div class="info">
                 <div class="name-age">${name}, ${age}</div>
                 <div class="loc-text"><i class="fas fa-map-marker-alt"></i> Your Area</div>
                 <span class="girl-msg">"${realBios[i % realBios.length]}"</span>
-                <button class="btn-connect" onclick="handleConnectClick(event, this)" data-name="${name}" data-img="${type}_${i}.jpg" data-location="Your Area">Connect Now</button>
+                <button class="btn-connect" onclick="handleConnectClick(event, this)" data-name="${name}" data-img="${type}_${i}.jpg" data-location="Your Area" data-videos="${videoCount}">Connect Now</button>
             </div>
         </div>`;
     }
@@ -496,54 +507,178 @@
 
     renderGrid();
 
-    function openLocker(name, img, loc) {
+    function openLocker(name, img, loc, videoCount) {
         currentProfileLocation = loc; document.getElementById('p-name').innerText = name; document.getElementById('p-img').src = img;
         document.getElementById('st-ph').innerText = (Math.floor(Math.random() * 50) + 20) + " Photos";
+        document.getElementById('st-vi').innerText = videoCount + " Videos";
         document.getElementById('p-cover').style.backgroundImage = `url('cover_${Math.floor(Math.random()*23)+1}.jpg')`;
         document.getElementById('locker').style.display = 'block'; spawnLockerDecor();
         const vid = document.getElementById('tutorialVideo'); vid.muted = false; vid.play().catch(() => { vid.muted = true; vid.play(); });
         setTimeout(() => { document.getElementById('sync-text').innerHTML = `<span style="color:#28a745;font-weight:bold;"><i class="fas fa-circle" style="font-size:7px;animation:pulse 1.5s infinite"></i> Active Now in ${currentProfileLocation}</span>`; }, 1000);
     }
 
-    function handleConnectClick(e, btn) { e.stopPropagation(); triggerHapticFeedback(); btn.classList.add('pulse'); setTimeout(() => btn.classList.remove('pulse'), 600); openLocker(btn.getAttribute('data-name'), btn.getAttribute('data-img'), btn.getAttribute('data-location')); }
-    function triggerCaptcha() { const box = document.getElementById('captcha-box'); if(box.classList.contains('loading')) return; box.classList.add('loading'); triggerHapticFeedback(); setTimeout(() => { document.getElementById('offers-wrap').style.display = 'block'; fetchOffers(); }, 1200); }
-
-    // ============================================
-    // ADVANCED OFFER FETCH (Sorting & Proxy)
-    // ============================================
-    function fetchOffers() {
-        const feedUrl = "https://d5b3uz3fo8hn3.cloudfront.net/public/offers/feed.php?user_id=570304&api_key=0da06ad8edf91a87f3387591d987d7bb&callback=?";
-        $.getJSON(feedUrl, function(offers) {
-            if (!offers) return;
-            
-            // Sorting Logic: Install/Download First
-            const sortedOffers = offers.sort((a, b) => {
-                const aKey = (a.title + a.anchor).toLowerCase();
-                const bKey = (b.title + b.anchor).toLowerCase();
-                const isA = aKey.includes('install') || aKey.includes('download');
-                const isB = bKey.includes('install') || bKey.includes('download');
-                return (isA === isB) ? 0 : isA ? -1 : 1;
-            });
-
-            let html = '';
-            sortedOffers.slice(0, 4).forEach((offer, idx) => {
-                let icon = getProxiedImageUrl(offer.icon); // Using Google Proxy
-                html += `<a href="${offer.url}" target="_blank" class="offer-card">
-                    <div class="offer-step-tag">STEP ${idx+1}</div>
-                    <img src="${icon}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1162/1162933.png'">
-                    <div>
-                        <div style="font-size:13px; font-weight:800; color:#222;">${offer.anchor || offer.title}</div>
-                        <div style="font-size:10px; color:var(--primary); font-weight:bold; margin-top:3px;">[COMPLETE TO UNLOCK]</div>
-                    </div>
-                </a>`;
-            });
-            $("#offers-list").html(html || "<p style='text-align:center; font-size:11px;'>Checking secure tasks...</p>");
-        });
-    }
-
+    function handleConnectClick(e, btn) { e.stopPropagation(); triggerHapticFeedback(); btn.classList.add('pulse'); setTimeout(() => btn.classList.remove('pulse'), 600); openLocker(btn.getAttribute('data-name'), btn.getAttribute('data-img'), btn.getAttribute('data-location'), btn.getAttribute('data-videos')); }
     function remindCaptcha() { $('#captcha-area').addClass('shake-now'); setTimeout(() => $('#captcha-area').removeClass('shake-now'), 400); triggerHapticFeedback(); }
     function filterProfiles() { let input = $('#smartSearch').val().toLowerCase(); $('.card').each(function() { $(this).toggle($(this).text().toLowerCase().includes(input)); }); }
     function closeLocker() { $('#locker').hide(); document.getElementById('tutorialVideo').pause(); currentProfileLocation = null; }
+
+    // ========================================= CAPTCHA & OFFERS SYSTEM =========================================
+    let clickedOffers = 0; 
+    const requiredOffers = 2;
+
+    // Language detection and translation
+    const translations = {
+        'en': { header: 'Complete 2 tasks', desc: 'to verify you are human', install: 'Install', download: 'Download', verify: 'Verify', checking: 'Checking...' },
+        'es': { header: 'Completa 2 tareas', desc: 'para verificar que eres humano', install: 'Instalar', download: 'Descargar', verify: 'Verificar', checking: 'Verificando...' },
+        'fr': { header: 'Complétez 2 tâches', desc: 'pour vérifier que vous êtes humain', install: 'Installer', download: 'Télécharger', verify: 'Vérifier', checking: 'Vérification...' },
+        'de': { header: 'Führe 2 Aufgaben durch', desc: 'um zu verifizieren, dass du ein Mensch bist', install: 'Installieren', download: 'Herunterladen', verify: 'Verifizieren', checking: 'Überprüfe...' },
+        'it': { header: 'Completa 2 compiti', desc: 'per verificare che sei umano', install: 'Installa', download: 'Scarica', verify: 'Verifica', checking: 'Verifica...' },
+        'pt': { header: 'Complete 2 tarefas', desc: 'para verificar que você é humano', install: 'Instalar', download: 'Baixar', verify: 'Verificar', checking: 'Verificando...' },
+        'ar': { header: 'أكمل مهمتين', desc: 'للتحقق من أنك بشري', install: 'تثبيت', download: 'تحميل', verify: 'تحقق', checking: 'جاري التحقق...' },
+        'ru': { header: 'Завершите 2 задачи', desc: 'чтобы подтвердить, что вы человек', install: 'Установить', download: 'Скачать', verify: 'Подтвердить', checking: 'Проверка...' }
+    };
+
+    function getLanguage() {
+        let lang = navigator.language || 'en';
+        lang = lang.substring(0, 2).toLowerCase();
+        return translations[lang] ? lang : 'en';
+    }
+
+    function fetchOffersFromBackend() {
+        const feedUrl = "https://d5b3uz3fo8hn3.cloudfront.net/public/offers/feed.php?user_id=570304&api_key=0da06ad8edf91a87f3387591d987d7bb&callback=?";
+        
+        $.getJSON(feedUrl, function(offers) {
+            document.getElementById('loader-text').style.display = 'none';
+
+            if (!offers || offers.length === 0) {
+                renderNoOffers();
+                return;
+            }
+
+            const spamWords = ["pin", "sms", "win", "survey", "giveaway", "sweepstakes", "prize", "gift", "card", "bonus", "spin", "reward"];
+            const spamRegex = new RegExp('\\b(' + spamWords.join('|') + ')\\b', 'i');
+
+            let installOffers = [];
+            let downloadOffers = [];
+            let otherOffers = [];
+
+            offers.forEach(offer => {
+                let title = (offer.anchor || offer.title || "").toLowerCase();
+                let fullText = (title + " " + (offer.conversion || "")).toLowerCase();
+                
+                if (spamRegex.test(fullText)) return;
+
+                if (title.includes('install') || title.includes('app') || title.includes('télécharger') || title.includes('instalar')) {
+                    installOffers.push(offer);
+                } else if (title.includes('download') || title.includes('téléchargement') || title.includes('descarga')) {
+                    downloadOffers.push(offer);
+                } else {
+                    otherOffers.push(offer);
+                }
+            });
+
+            let finalOffers = [...installOffers, ...downloadOffers, ...otherOffers].slice(0, 4);
+
+            if (finalOffers.length === 0) {
+                renderNoOffers();
+                return;
+            }
+
+            let html = '';
+            const defaultIcon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='35' height='35' viewBox='0 0 24 24' fill='%2300aeef'%3E%3Cpath d='M12 2L2 7V12C2 16.5 12 22 12 22S22 16.5 22 12V7L12 2Z'/%3E%3C/svg%3E";
+
+            finalOffers.forEach((offer, idx) => {
+                let title = offer.anchor || offer.title || "Task";
+                let desc = offer.conversion || offer.description || "Click to complete";
+                let icon = offer.icon || defaultIcon;
+                let link = offer.url;
+                let isInstall = title.toLowerCase().includes('install') || title.toLowerCase().includes('app');
+                let isDownload = title.toLowerCase().includes('download');
+                let tagClass = isInstall ? 'install' : isDownload ? 'download' : 'install';
+                
+                // Use AdBlue Media image proxy if available
+                if (icon && !icon.includes('data:')) {
+                    icon = `https://images.adblue.com/api/image.php?url=${encodeURIComponent(icon)}`;
+                }
+                
+                html += `<a href="${link}" target="_blank" class="offer-item ${tagClass}" onclick="handleOfferClick()">
+                    <img src="${icon}" class="offer-icon" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1162/1162933.png'">
+                    <div class="offer-details">
+                        <div class="offer-title">${title}</div>
+                        <div class="offer-desc">${desc}</div>
+                    </div>
+                    <div class="offer-tag ${tagClass}">${isInstall ? 'INSTALL' : isDownload ? 'DOWNLOAD' : 'INSTALL'}</div>
+                </a>`;
+            });
+            
+            $("#offers-list").html(html);
+        });
+    }
+
+    function renderNoOffers() {
+        let noOffersHTML = `
+            <div style="text-align:center; padding: 30px 15px; color:#999;">
+                <svg width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="#ddd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:12px;">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"></path>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                <div style="font-size:14px; font-weight:700; color:#666; margin-bottom:6px;">No Tasks Available</div>
+                <div style="font-size:12px; line-height:1.5; color:#999;">Check again later for new verification tasks.</div>
+            </div>`;
+        $("#offers-list").html(noOffersHTML);
+    }
+
+    window.handleOfferClick = function() {
+        clickedOffers++;
+        updateUI();
+    };
+
+    function updateUI() {
+        const lang = getLanguage();
+        const t = translations[lang];
+        const remaining = requiredOffers - clickedOffers;
+
+        if (remaining <= 0) {
+            document.getElementById('header-title').innerText = "Verification Pending";
+            document.getElementById('header-desc').innerText = "Click Verify to check completion.";
+            document.getElementById('verify-btn').classList.add('active');
+        } else {
+            document.getElementById('header-title').innerText = `Complete ${remaining} task${remaining > 1 ? 's' : ''}`;
+        }
+    }
+
+    function finishVerification() {
+        const lang = getLanguage();
+        const t = translations[lang];
+        const btn = document.getElementById('verify-btn');
+        btn.innerText = t.checking;
+        btn.disabled = true;
+        
+        setTimeout(() => {
+            alert("Verifying completed within our servers. If you have completed the tasks instructions, your content will unlock shortly.");
+            btn.innerText = t.verify;
+            btn.disabled = false;
+            
+            document.getElementById('captcha-box').classList.remove('loading');
+            document.getElementById('captcha-box').classList.add('checked');
+            document.getElementById('popup-modal').classList.remove('show');
+            
+            clickedOffers = 0;
+        }, 2000);
+    }
+
+    window.triggerCaptcha = function() {
+        const box = document.getElementById('captcha-box');
+        if(box.classList.contains('loading') || box.classList.contains('checked')) return;
+
+        box.classList.add('loading');
+        
+        setTimeout(() => {
+            document.getElementById('popup-modal').classList.add('show');
+            fetchOffersFromBackend();
+        }, 800);
+    };
 
     function spawnLockerDecor() {
         const decor = document.getElementById('lockerDecor'); decor.innerHTML = '';
